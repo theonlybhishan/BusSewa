@@ -1,0 +1,363 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="inlineform">
+    <div class="container">
+        <form action="{% url 'bus' %}" method="GET">
+            <div class='form-row searchbar'>
+                <div class="col-md-3">
+                    <input list="startpoint" class="form-control" placeholder="StartPoint" name="startpoint" required>
+                    <datalist id="startpoint">
+                        <option>Pokhara</option>
+                        <option>Kathmandu</option>
+                        <option>Syangja</option>
+                        <option>Dang</option>
+                        <option>Nepaljung</option>
+                    </datalist>  
+                </div>
+                <div class="col-md-3">
+                    <input list="endpoint" size="3" class="form-control" placeholder="Endpoint" name="endpoint" required>
+                    <datalist id="endpoint">
+                        <option >Pokhara</option>
+                        <option>Kathmandu</option>
+                        <option>Syangja</option>
+                        <option>Dang</option>
+                        <option>Nepaljung</option>
+                        <option>Nuwakot</option>
+                    </datalist>  
+                </div>
+
+                <div class="col-md-3">
+                    <!-- <label>Departure Time:</label> -->
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="sld" placeholder="Select Date" name="departure" required>
+                        <span class="input-group-append">
+                            <div class="input-group-text bg-transparent border-0">
+                                <i class="fas fa-calendar-alt"></i>                                        
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="md-4">
+                    <button type="submit" class="btn btn-primary btn-md btn-block">Search</button>  
+                </div>                      
+        </form>            
+    </div>
+</section>
+
+<section class="results">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-2 col-xs-12">
+                <h5><b>FILTERS</b></h5><hr>
+                <div class="filters-section">
+                    <a href="">Reshudable</a><hr>
+                    <p><b>Amneties</b></p><hr> 
+                </div>
+            </div>
+            <div class="col-md-10 col-xs-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Operator ID</th>
+                        <th scope="col">Operator Name</th>
+                        <th scope="col">Route</th>
+                        <th scope="col">Bus Type</th>
+                        <th scope="col">Fare</th>
+                        <th scope="col">Operator</th>
+                        </tr>
+                    </thead>
+                {% for bus in bus %}
+                    <tbody>
+                        <tr>
+                            <td id="bus{{bus.id}}">{{bus.id}}</td>
+                            <td>{{bus.operator}}</td>
+                            <td>{{bus.route}}</td>
+                            <td>{{bus.bustype}}</td>
+                            <td id="fare">{{bus.price}}</td>
+                            <td>
+                                <button type="submit" id="book-btn" for="{{bus.price}}#{{bus.id}}" onclick='myfunc(this)' class="btn btn-sm btn-primary" data-toggle="modal" data-target="#mymodal">
+                                    book
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <!-- Modal -->
+                    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-6 col-xs-12">
+                                    <p class="text-center"><b> Select Seat</b></p>
+                                    {% comment %} <form action="" type="GET"> {% endcomment %}
+                                        <div class="seat-container">                                
+                                            <div class="select-container">
+                                                <div class="screen"></div>
+                                                <div class="seat-row">
+                                                    <div class="seat-none"></div>
+                                                    <div class="seat-none"></div>
+                                                    <div class="seat-none"></div>
+                                                    <div class="driver text-center">D</div>
+                                                </div>
+                                                <div class="seat-row">
+                                                    <div class="seat text-center">A1</div>
+                                                    <div class="seat text-center">A2</div>
+                                                    <div class="seat text-center">B1</div>
+                                                    <div class="seat text-center">B2</div>
+                                                </div>
+                                                <div class="seat-row">
+                                                    <div class="seat text-center">A3</div>
+                                                    <div class="seat text-center">A4</div>
+                                                    <div class="seat text-center">B3</div>
+                                                    <div class="seat text-center occupied">B4</div>
+                                                </div>
+                                                <div class="seat-row">
+                                                    <div class="seat text-center">A5</div>
+                                                    <div class="seat text-center">A6</div>
+                                                    <div class="seat text-center">B5</div>
+                                                    <div class="seat text-center">B6</div>
+                                                </div>
+                                                <div class="seat-row">
+                                                    <div class="seat text-center">A7</div>
+                                                    <div class="seat text-center">A8</div>
+                                                    <div class="seat text-center">B7</div>
+                                                    <div class="seat text-center">B8</div>
+                                                </div>
+                                                <div class="seat-row">
+                                                    <div class="seat text-center">A9</div>
+                                                    <div class="seat text-center">A10</div>
+                                                    <div class="seat text-center occupied">B9</div>
+                                                    <div class="seat text-center">B10</div>
+                                                </div>
+                                                <div class="seat-row">
+                                                    <div class="seat text-center">A11</div>
+                                                    <div class="seat text-center">A12</div>
+                                                    <div class="seat text-center">B11</div>
+                                                    <div class="seat text-center">B12</div>
+                                                </div>
+                                                <div class="seat-row">
+                                                    <div class="seat text-center">A13</div>
+                                                    <div class="seat text-center">A14</div>
+                                                    <div class="seat text-center occupied">B13</div>
+                                                    <div class="seat text-center">B14</div>
+                                                </div>
+                                                <div class="seat-row">
+                                                    <div class="seat text-center">A15</div>
+                                                    <div class="seat text-center">A16</div>
+                                                    <div class="seat text-center">B15</div>
+                                                    <div class="seat text-center">B16</div>
+                                                </div>
+                                                <div class="seat-row">
+                                                    <div class="seat text-center">A17</div>
+                                                    <div class="seat text-center">A18</div>
+                                                    <div class="seat text-center">B17</div>
+                                                    <div class="seat text-center">B18</div>
+                                                </div>
+                                                <div class="seat-row">
+                                                    <div class="seat text-center">A19</div>
+                                                    <div class="seat text-center">A20</div>
+                                                    <div class="seat text-center">B19</div>
+                                                    <div class="seat text-center">B20</div>
+                                                    <!-- <div class="seat"></div>
+                                                    <div class="seat"></div> -->
+                                                </div>
+                                                <ul class="showcase">
+                                                    <li>
+                                                        <div class="seat">
+                                                            <small>N/A</small>
+                                                        </div>
+                                                    </li>
+                                        
+                                                    <li>
+                                                        <div class="seat selected">
+                                                            <small>Selected</small>
+                                                        </div>
+                                                    </li>
+                                        
+                                                    <li>
+                                                        <div class="seat occupied">
+                                                            <small>Occupied</small>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                                <p class="text">
+                                                    you have selected <span id="count">0</span> seats for a price of  Rs. <span id="total">0</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    {% comment %} </form> {% endcomment %}
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <form action="" type="">
+                                        <div class="form-group">
+                                        <label for="pickup_location">Name of Passenger*</label>
+                                            <input name="passenger" id="name-of-passenger" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                        <label for="Drop-location">E-mail Address*</label>
+                                            <input name="drop_location" id="drop_location" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                        <label for="Drop-location">Mobile Number*</label>
+                                            <input name="passenger" id="Total_person" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                        <label for="pickup_location">Pickup Points</label>
+                                            <select name="pickup_location" id="pickup_location" class="form-control">
+                                            
+                                            {% for i in bus.route_set.all %}
+                                                <option value="">{{i.pickuo_point}}</option>
+                                            {% endfor %}
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-md btn-block">Continue</button>  
+                                    </form>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="modal-footer">
+                            <input type="button" value="" class="btn btn-sm bt-primary" placeholder="Keep On Going">
+                                {% comment %} <button type="button" class="btn btn-primary">Keep on going</button> {% endcomment %}
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </table>
+                {% comment %} {% for bus in bus %}
+                    <div class="accordionItem">
+                        <div class="row accordionTitle">
+                            <div class="col-sm-3">
+                                <p><b>Operator Name</b></p>
+                                {{bus.operator}}
+                            </div>
+                            <div class="col-sm-2">
+                                <p>Bus Type</p>
+                                {{bus.bustype}}
+                            </div>
+                            <div class="col-sm-2">
+                                <p><b>Departure-shift</b></p>
+                                {{bus.boarding_time}}
+                            </div>
+                            <div class="col-sm-3">
+                                <p>Route</p>
+                                {{bus.route_name}}
+                            </div>
+                            <div class="col-sm-2">
+                                <p><b>Fare</b></p>
+                                Rs.<span id="spare">{{bus.price}}</span>
+                            </div>
+                        </div>
+                        <div class="accordionContent">
+                                <div class="seat-container">                                
+                                    <ul class="showcase">
+                                        <li>
+                                            <div class="seat">
+                                                <small>N/A</small>
+                                            </div>
+                                        </li>
+                            
+                                        <li>
+                                            <div class="seat selected">
+                                                <small>Selected</small>
+                                            </div>
+                                        </li>
+                            
+                                        <li>
+                                            <div class="seat occupied">
+                                                <small>Occupied</small>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="select-container">
+                                        <div class="screen"></div>
+                                        <div class="seat-row">
+                                            <div class="seat-none"></div>
+                                            <div class="seat-none"></div>
+                                            <div class="seat-none"></div>
+                                            <div class="driver"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat occupied"></div>
+                                            <div class="seat occupied"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat occupied"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat occupied"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <!-- <div class="seat"></div>
+                                            <div class="seat"></div> -->
+                                        </div>
+                                        <p class="text">
+                                            you have selected <span id="count">0</span> seats for a price of  Rs. <span id="total">0</span>
+                                        </p>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                {% endfor %} {% endcomment %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

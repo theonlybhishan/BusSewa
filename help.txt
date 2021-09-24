@@ -1,0 +1,21 @@
+
+class Route(models.Model):
+    start_point     =models.CharField(max_length=100, blank=True)
+    end_point       =models.CharField(max_length=100, blank=True)
+
+
+
+class Bus(models.Model):
+    route_name      =models.ForeignKey(Route, on_delete=models.CASCADE)
+
+# views.py
+
+bus= Bus.objects.all()
+start_query= request.objects.Get.get('startpoint')
+
+if start_point != '' and start_point is not None:
+    qs = bus.get(route__start_point = start_query)
+    print(qs)
+
+    #f7f8f9
+    #E9EBEE

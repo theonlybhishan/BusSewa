@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% comment %} {% include 'includes/navbar.html' %} {% endcomment %}
+{% block content %}
+<section class='main-search'>
+    <div class='container'>
+        <div class='row'>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class='home-form'>
+                    <div class="search-title">
+                        <h3 class='text-center'>Plan Your Route</h3>
+                    </div>
+                    <div class="search-form">
+                        <form action="{% url 'bus' %}" method="GET">
+                            <div class="form-group">
+                                <label>From:</label>
+                                <input list="startpoint" class="form-control" placeholder="StartPoint" name="startpoint" required>
+                                <datalist id="startpoint">
+                                    <option>Pokhara</option>
+                                    <option>Kathmandu</option>
+                                    <option>Syangja</option>
+                                    <option>Dang</option>
+                                    <option>Nepaljung</option>
+                                </datalist>
+                            </div>
+                            <div class="form-group">
+                                <label>To:</label>
+                                <input list="endpoint" size="3" class="form-control" placeholder="endpoint" name="endpoint" required>
+                                <datalist id="endpoint">
+                                    <option >Pokhara</option>
+                                    <option>Kathmandu</option>
+                                    <option>Syangja</option>
+                                    <option>Dang</option>
+                                    <option>Nepaljung</option>
+                                    <option>Nuwakot</option>
+                                </datalist>  
+                            </div>
+
+                            <div class="form-group">
+                                <label>Departure Time:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="sld" placeholder="Select Date" name="departure" required>
+                                    <span class="input-group-append">
+                                        <div class="input-group-text bg-transparent border-0">
+                                            <i class="fas fa-calendar-alt"></i>                                        
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-sm btn-block">Submit</button>                        
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% comment %} <div class="col-lg-8 col-md-6 col-sm-12 m-auto text-center">
+                <h1>Travel freely with Bussewa Nepal</h1>
+            </div>    {% endcomment %}
+        </div
+    </div>
+</section>
+
+<section class="features-section">
+    <div class"feature-title">
+        <h1 class="text-center">Welcome To Bus Sewa Nepal</h1>
+    </div>
+</section>
+
+
+{% comment %} ./static/images/bus1.png {% endcomment %}
+{% endblock content %}

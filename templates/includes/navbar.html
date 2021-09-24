@@ -1,0 +1,58 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<div class="container">
+  <a class="navbar-brand" href="{% url 'home' %}">
+    <img class="logo" src="{% static './images/logo.svg' %}" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Help <span class="sr-only"></span></a>
+      </li>
+      {% comment %} <li class="nav-item">
+        <a class="nav-link" href="{% url 'booking' %}">booking <span class="sr-only"></span></a>
+      </li> {% endcomment %}
+      {% comment %} <li class="nav-item">
+        <a class="nav-link" href="{% url 'bus' %}">Bus <span class="sr-only"></span></a>
+        </li>  {% endcomment %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Manage Booking
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Print Ticket</a><hr>
+          <a class="dropdown-item" href="#">Cancel Ticket</a>
+        </div>
+      </li>
+      {% if user.id is None %}
+        <li class="nav-item dropdown mt-2 ml-2">
+        <a href="{% url 'login' %}">Login</a> <span class="dark-transp"> | </span>
+        <a href="{% url 'register' %}"> Register</a>
+          {% comment %} <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Login
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'login' %}">User</a>
+            <a class="dropdown-item" href="{% url 'register' %}">Register</a>
+          </div> {% endcomment %}
+        </li>
+      {% else %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Welcome {{user.first_name}}!
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a href="{% url 'dashboard' %}">Dahboard</a> <span class="dark-transp"> | </span>
+            <a href="{% url 'logout' %}"> Logout</a>
+          </div>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+</nav>
