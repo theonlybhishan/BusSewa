@@ -147,6 +147,6 @@ MESSAGE_TAGS = {
 
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT= 587
-EMAIL_HOST_USER= 'bhishanpoudel0@gmail.com'
-EMAIL_HOST_PASSWORD='@2020#Quantum'
+EMAIL_HOST_USER= 'admin@gmail.com'
+EMAIL_HOST_PASSWORD='code'
 EMAIL_USE_TLS= True
