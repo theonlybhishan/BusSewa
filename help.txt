@@ -19,3 +19,9 @@ if start_point != '' and start_point is not None:
 
     #f7f8f9
     #E9EBEE
+
+
+    {% comment %} model code button change  {% endcomment %}
+<button type="submit" id="book-btn" for="{{bus.price}}#{{bus.id}}" onclick='myfunc(this)' class="btn btn-sm btn-primary" data-toggle="modal" data-target="#mymodal">
+book
+</button>

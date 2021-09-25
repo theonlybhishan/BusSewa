@@ -66,19 +66,27 @@
                         <th scope="col">Route</th>
                         <th scope="col">Bus Type</th>
                         <th scope="col">Fare</th>
+                        <th scope="col">Seat Type</th>
                         <th scope="col">Operator</th>
                         </tr>
                     </thead>
                 {% for bus in bus %}
                     <tbody>
                         <tr>
-                            <td id="bus{{bus.id}}">{{bus.id}}</td>
-                            <td>{{bus.operator}}</td>
-                            <td>{{bus.route}}</td>
+                            <td id="bus{{bus.operator.id}}">{{bus.operator.id}}</td>
+                            <td>{{bus.bus_name}}-{{bus.operator.id}}</td>
+                            <td>{{bus.route}}-{{bus.route.id}}</td>
                             <td>{{bus.bustype}}</td>
                             <td id="fare">{{bus.price}}</td>
+                            <td>{{bus.seat_type}}</td>
                             <td>
-                                <button type="submit" id="book-btn" for="{{bus.price}}#{{bus.id}}" onclick='myfunc(this)' class="btn btn-sm btn-primary" data-toggle="modal" data-target="#mymodal">
+                                <button type="submit" id="book-btn" for="{{bus.price}}#{{bus.id}}" onclick='myfunc(this)' class="btn btn-sm btn-primary modal-button" data-toggle="modal" data-target="#mymodal"
+                                data-busId="{{bus.id}}"
+                                data-busName="{{bus.bus_name}}"
+                                data-routeId="{{bus.route.id}}"
+                                data-busSeat="{{bus.no_seats}}"
+                                data-busNo="{{bus.bus_number}}"
+                                data-seatType="{{bus.seat_type}}">
                                     book
                                 </button>
                             </td>
@@ -93,10 +101,10 @@
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body" id="modal-body-booking">
                             <div class="row">
                                 <div class="col-sm-6 col-xs-12">
-                                    <p class="text-center"><b> Select Seat</b></p>
+                                    <p class="text-center" id="heading"></p>
                                     {% comment %} <form action="" type="GET"> {% endcomment %}
                                         <div class="seat-container">                                
                                             <div class="select-container">
@@ -117,7 +125,7 @@
                                                     <div class="seat text-center">A3</div>
                                                     <div class="seat text-center">A4</div>
                                                     <div class="seat text-center">B3</div>
-                                                    <div class="seat text-center occupied">B4</div>
+                                                    <div class="seat text-center">B4</div>
                                                 </div>
                                                 <div class="seat-row">
                                                     <div class="seat text-center">A5</div>
@@ -134,7 +142,7 @@
                                                 <div class="seat-row">
                                                     <div class="seat text-center">A9</div>
                                                     <div class="seat text-center">A10</div>
-                                                    <div class="seat text-center occupied">B9</div>
+                                                    <div class="seat text-center">B9</div>
                                                     <div class="seat text-center">B10</div>
                                                 </div>
                                                 <div class="seat-row">
@@ -146,7 +154,7 @@
                                                 <div class="seat-row">
                                                     <div class="seat text-center">A13</div>
                                                     <div class="seat text-center">A14</div>
-                                                    <div class="seat text-center occupied">B13</div>
+                                                    <div class="seat text-center">B13</div>
                                                     <div class="seat text-center">B14</div>
                                                 </div>
                                                 <div class="seat-row">
@@ -200,26 +208,26 @@
                                     <form action="" type="">
                                         <div class="form-group">
                                         <label for="pickup_location">Name of Passenger*</label>
-                                            <input name="passenger" id="name-of-passenger" class="form-control">
+                                            <input name="passenger" id="name-of-passenger" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                         <label for="Drop-location">E-mail Address*</label>
-                                            <input name="drop_location" id="drop_location" class="form-control">
+                                            <input name="drop_location" id="drop_location" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                         <label for="Drop-location">Mobile Number*</label>
-                                            <input name="passenger" id="Total_person" class="form-control">
+                                            <input name="passenger" id="Total_person" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                         <label for="pickup_location">Pickup Points</label>
                                             <select name="pickup_location" id="pickup_location" class="form-control">
                                             
-                                            {% for i in bus.route_set.all %}
+                                            {% comment %} {% for i in bus.route_set.all %} {% endcomment %}
                                                 <option value="">{{i.pickuo_point}}</option>
-                                            {% endfor %}
+                                            {% comment %} {% endfor %} {% endcomment %}
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-md btn-block">Continue</button>  
+                                        <a href="{% url 'booking' %}" class="btn btn-primary btn-md btn-block">Continue</a>  
                                     </form>
                                 </div>
                             </div>

@@ -66,6 +66,17 @@ class Bus(models.Model):
         ('HIACE','HIACE'),
         ('JEEP','JEEP'),
     )
+
+    SEAT_TYPE       ={
+        ('1*1','1*1'),
+        ('1*2','1*2'),
+        ('2*1','2*1'),
+        ('2*2','2*2'),
+        ('3*2','3*2'),
+        ('2*3','2*3'),
+        ('3*3','3*3')
+
+    }
     bus_name        =models.CharField(max_length=200)
     # slug            =models.SlugField(max_length = 200, unique=True)
     bustype         =models.CharField(max_length=100, choices=BUS_TYPE)
@@ -82,6 +93,7 @@ class Bus(models.Model):
     modified_date   =models.DateTimeField(auto_now=True)
     bus_number      =models.CharField(max_length=100)
     driver_name     =models.CharField(max_length=100)
+    seat_type       =models.CharField(max_length=100, choices=SEAT_TYPE, default=1)
     no_seats        =models.IntegerField(default=40)
     date            =models.DateField(auto_now=False, auto_now_add=False, default=datetime.now)
     price           =models.IntegerField()

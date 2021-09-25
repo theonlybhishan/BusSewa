@@ -47,6 +47,10 @@ console.log(ticketPrice);
 // update total and count
 function updateSelectedCount(){
     const selectedSeats = document.querySelectorAll('.seat-row .seat.selected');
+    const seatsIndex = [...selectedSeats].map(function(seat){
+        return[...seats].indexOf(seat);
+    })
+    console.log(seatsIndex)
     const selectedSeatsCount = selectedSeats.length;
     console.log(selectedSeatsCount);
     count.innerText = selectedSeatsCount;
@@ -61,9 +65,20 @@ function myfunc(myvar){
     updateSelectedCount();
 }
 
+const modalBtns = [...document.getElementsByClassName('modal-button')];
+const modalHeading = document.getElementById('heading');
 
+modalBtns.forEach(modalBtn => modalBtn.addEventListener('click', ()=>{
+    const busId = modalBtn.getAttribute('data-busId');
+    const busName = modalBtn.getAttribute('data-busName');
+    const routeId = modalBtn.getAttribute('data-routeId');
+    const busSeat = modalBtn.getAttribute('data-busSeat');
+    const seatType = modalBtn.getAttribute('data-seatType');
 
-
+    modalHeading.innerHTML=`
+    <p class="text-center" id="heading"><b> Select ${busName} Seat</b></p>
+    `
+}))
 // myfunc
 // arr1=[];
 // arr2=[];
