@@ -46,7 +46,153 @@
         </form>            
     </div>
 </section>
+<!-- Modal -->
+    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body-booking">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <p class="text-center" id="heading"></p>
+                    {% comment %} <form action="" type="GET"> {% endcomment %}
+                        <div class="seat-container">                                
+                            <div class="select-container">
+                                <div class="screen"></div>
+                                <div class="seat-row">
+                                    <div class="seat-none"></div>
+                                    <div class="seat-none"></div>
+                                    <div class="seat-none"></div>
+                                    <div class="driver text-center">D</div>
+                                </div>
+                                <div class="seat-row">
+                                    <div class="seat text-center">A1</div>
+                                    <div class="seat text-center">A2</div>
+                                    <div class="seat text-center">B1</div>
+                                    <div class="seat text-center">B2</div>
+                                </div>
+                                <div class="seat-row">
+                                    <div class="seat text-center">A3</div>
+                                    <div class="seat text-center">A4</div>
+                                    <div class="seat text-center">B3</div>
+                                    <div class="seat text-center">B4</div>
+                                </div>
+                                <div class="seat-row">
+                                    <div class="seat text-center">A5</div>
+                                    <div class="seat text-center">A6</div>
+                                    <div class="seat text-center">B5</div>
+                                    <div class="seat text-center">B6</div>
+                                </div>
+                                <div class="seat-row">
+                                    <div class="seat text-center">A7</div>
+                                    <div class="seat text-center">A8</div>
+                                    <div class="seat text-center">B7</div>
+                                    <div class="seat text-center">B8</div>
+                                </div>
+                                <div class="seat-row">
+                                    <div class="seat text-center">A9</div>
+                                    <div class="seat text-center">A10</div>
+                                    <div class="seat text-center">B9</div>
+                                    <div class="seat text-center">B10</div>
+                                </div>
+                                <div class="seat-row">
+                                    <div class="seat text-center">A11</div>
+                                    <div class="seat text-center">A12</div>
+                                    <div class="seat text-center">B11</div>
+                                    <div class="seat text-center">B12</div>
+                                </div>
+                                <div class="seat-row">
+                                    <div class="seat text-center">A13</div>
+                                    <div class="seat text-center">A14</div>
+                                    <div class="seat text-center">B13</div>
+                                    <div class="seat text-center">B14</div>
+                                </div>
+                                <div class="seat-row">
+                                    <div class="seat text-center">A15</div>
+                                    <div class="seat text-center">A16</div>
+                                    <div class="seat text-center">B15</div>
+                                    <div class="seat text-center">B16</div>
+                                </div>
+                                <div class="seat-row">
+                                    <div class="seat text-center">A17</div>
+                                    <div class="seat text-center">A18</div>
+                                    <div class="seat text-center">B17</div>
+                                    <div class="seat text-center">B18</div>
+                                </div>
+                                <div class="seat-row">
+                                    <div class="seat text-center">A19</div>
+                                    <div class="seat text-center">A20</div>
+                                    <div class="seat text-center">B19</div>
+                                    <div class="seat text-center">B20</div>
+                                    <!-- <div class="seat"></div>
+                                    <div class="seat"></div> -->
+                                </div>
+                                <ul class="showcase mt-3">
+                                    <li>
+                                        <div class="demo-seat">
+                                        </div>
+                                        <small>N/A</small>                                                        
+                                    </li>
+                        
+                                    <li>
+                                        <div class="demo-seat selected">
+                                        </div>
+                                        <small>Selected</small>
+                                    </li>
+                        
+                                    <li>
+                                        <div class="demo-seat occupied">                                                          
+                                        </div>
+                                        <small>Occupied</small>
+                                    </li>
+                                </ul>
 
+                                <p class="text">
+                                    you have selected <span id="count">0</span> seats for a price of  Rs. <span id="total">0</span>
+                                </p>
+                            </div>
+                        </div>
+                    {% comment %} </form> {% endcomment %}
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <form action="" type="">
+                        <div class="form-group">
+                        <label for="pickup_location">Name of Passenger*</label>
+                            <input name="passenger" id="name-of-passenger" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="Drop-location">E-mail Address*</label>
+                            <input name="drop_location" id="drop_location" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="Drop-location">Mobile Number*</label>
+                            <input name="passenger" id="Total_person" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="pickup_location">Pickup Points</label>
+                            <select name="pickup_location" id="pickup_location" class="form-control">
+                            
+                            
+                                <option value="">{{i.pickup_point}}</option>
+                            
+                            </select>
+                        </div>
+                        <a href="" class="btn btn-primary btn-md btn-block">Continue</a>  
+                    </form>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <input type="button" value="" class="btn btn-sm bt-primary" placeholder="Keep On Going">
+                {% comment %} <button type="button" class="btn btn-primary">Keep on going</button> {% endcomment %}
+            </div>
+            </div>
+        </div>
+    </div>
 <section class="results">
     <div class="container">
         <div class="row mt-5">
@@ -77,7 +223,7 @@
                             <td>{{bus.bus_name}}-{{bus.operator.id}}</td>
                             <td>{{bus.route}}-{{bus.route.id}}</td>
                             <td>{{bus.bustype}}</td>
-                            <td id="fare">{{bus.price}}</td>
+                            <td id="fare" value="{{bus.price}}">{{bus.price}}</td>
                             <td>{{bus.seat_type}}</td>
                             <td>
                                 <button type="submit" id="book-btn" for="{{bus.price}}#{{bus.id}}" onclick='myfunc(this)' class="btn btn-sm btn-primary modal-button" data-toggle="modal" data-target="#mymodal"
@@ -86,159 +232,14 @@
                                 data-routeId="{{bus.route.id}}"
                                 data-busSeat="{{bus.no_seats}}"
                                 data-busNo="{{bus.bus_number}}"
-                                data-seatType="{{bus.seat_type}}">
+                                data-seatType="{{bus.seat_type}}"
+                                data-busPrice="{{bus.price}}">
                                     book
                                 </button>
                             </td>
                         </tr>
                     </tbody>
-                    <!-- Modal -->
-                    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body" id="modal-body-booking">
-                            <div class="row">
-                                <div class="col-sm-6 col-xs-12">
-                                    <p class="text-center" id="heading"></p>
-                                    {% comment %} <form action="" type="GET"> {% endcomment %}
-                                        <div class="seat-container">                                
-                                            <div class="select-container">
-                                                <div class="screen"></div>
-                                                <div class="seat-row">
-                                                    <div class="seat-none"></div>
-                                                    <div class="seat-none"></div>
-                                                    <div class="seat-none"></div>
-                                                    <div class="driver text-center">D</div>
-                                                </div>
-                                                <div class="seat-row">
-                                                    <div class="seat text-center">A1</div>
-                                                    <div class="seat text-center">A2</div>
-                                                    <div class="seat text-center">B1</div>
-                                                    <div class="seat text-center">B2</div>
-                                                </div>
-                                                <div class="seat-row">
-                                                    <div class="seat text-center">A3</div>
-                                                    <div class="seat text-center">A4</div>
-                                                    <div class="seat text-center">B3</div>
-                                                    <div class="seat text-center">B4</div>
-                                                </div>
-                                                <div class="seat-row">
-                                                    <div class="seat text-center">A5</div>
-                                                    <div class="seat text-center">A6</div>
-                                                    <div class="seat text-center">B5</div>
-                                                    <div class="seat text-center">B6</div>
-                                                </div>
-                                                <div class="seat-row">
-                                                    <div class="seat text-center">A7</div>
-                                                    <div class="seat text-center">A8</div>
-                                                    <div class="seat text-center">B7</div>
-                                                    <div class="seat text-center">B8</div>
-                                                </div>
-                                                <div class="seat-row">
-                                                    <div class="seat text-center">A9</div>
-                                                    <div class="seat text-center">A10</div>
-                                                    <div class="seat text-center">B9</div>
-                                                    <div class="seat text-center">B10</div>
-                                                </div>
-                                                <div class="seat-row">
-                                                    <div class="seat text-center">A11</div>
-                                                    <div class="seat text-center">A12</div>
-                                                    <div class="seat text-center">B11</div>
-                                                    <div class="seat text-center">B12</div>
-                                                </div>
-                                                <div class="seat-row">
-                                                    <div class="seat text-center">A13</div>
-                                                    <div class="seat text-center">A14</div>
-                                                    <div class="seat text-center">B13</div>
-                                                    <div class="seat text-center">B14</div>
-                                                </div>
-                                                <div class="seat-row">
-                                                    <div class="seat text-center">A15</div>
-                                                    <div class="seat text-center">A16</div>
-                                                    <div class="seat text-center">B15</div>
-                                                    <div class="seat text-center">B16</div>
-                                                </div>
-                                                <div class="seat-row">
-                                                    <div class="seat text-center">A17</div>
-                                                    <div class="seat text-center">A18</div>
-                                                    <div class="seat text-center">B17</div>
-                                                    <div class="seat text-center">B18</div>
-                                                </div>
-                                                <div class="seat-row">
-                                                    <div class="seat text-center">A19</div>
-                                                    <div class="seat text-center">A20</div>
-                                                    <div class="seat text-center">B19</div>
-                                                    <div class="seat text-center">B20</div>
-                                                    <!-- <div class="seat"></div>
-                                                    <div class="seat"></div> -->
-                                                </div>
-                                                <ul class="showcase">
-                                                    <li>
-                                                        <div class="seat">
-                                                            <small>N/A</small>
-                                                        </div>
-                                                    </li>
-                                        
-                                                    <li>
-                                                        <div class="seat selected">
-                                                            <small>Selected</small>
-                                                        </div>
-                                                    </li>
-                                        
-                                                    <li>
-                                                        <div class="seat occupied">
-                                                            <small>Occupied</small>
-                                                        </div>
-                                                    </li>
-                                                </ul>
 
-                                                <p class="text">
-                                                    you have selected <span id="count">0</span> seats for a price of  Rs. <span id="total">0</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    {% comment %} </form> {% endcomment %}
-                                </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <form action="" type="">
-                                        <div class="form-group">
-                                        <label for="pickup_location">Name of Passenger*</label>
-                                            <input name="passenger" id="name-of-passenger" class="form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                        <label for="Drop-location">E-mail Address*</label>
-                                            <input name="drop_location" id="drop_location" class="form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                        <label for="Drop-location">Mobile Number*</label>
-                                            <input name="passenger" id="Total_person" class="form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                        <label for="pickup_location">Pickup Points</label>
-                                            <select name="pickup_location" id="pickup_location" class="form-control">
-                                            
-                                            {% comment %} {% for i in bus.route_set.all %} {% endcomment %}
-                                                <option value="">{{i.pickuo_point}}</option>
-                                            {% comment %} {% endfor %} {% endcomment %}
-                                            </select>
-                                        </div>
-                                        <a href="{% url 'booking' %}" class="btn btn-primary btn-md btn-block">Continue</a>  
-                                    </form>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="modal-footer">
-                            <input type="button" value="" class="btn btn-sm bt-primary" placeholder="Keep On Going">
-                                {% comment %} <button type="button" class="btn btn-primary">Keep on going</button> {% endcomment %}
-                            </div>
-                            </div>
-                        </div>
-                    </div>
                 {% endfor %}
                 </table>
                 {% comment %} {% for bus in bus %}

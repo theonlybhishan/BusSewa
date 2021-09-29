@@ -2,8 +2,8 @@ from django.db import models
 from datetime import datetime
 # from django.db.models.base import ModelState
 
-from django.utils import tree
-
+# from django.utils import tree
+# from booking.models import Seat
 
 
 class Amneties(models.Model):
@@ -57,6 +57,17 @@ class Agent(models.Model):
 
     # def get_absolute_url(self):
     #     return reverse("category_detail", kwargs={"pk": self.pk})
+class Seat(models.Model):
+    bus= models.ForeignKey('Bus',on_delete= models.CASCADE, default=1)
+    seat_no= models.IntegerField()
+    occupant_firstname= models.CharField(max_length=200)
+    occupant_lastname =models.CharField(max_length=200)
+    occupant_email= models.EmailField(max_length=255)
+    purchase_time= models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"#{self.seat_no}{self.occupant_firstname}-{self.occupant_lastname}"
+
 
 class Bus(models.Model):
     BUS_TYPE        =(
@@ -93,10 +104,21 @@ class Bus(models.Model):
     modified_date   =models.DateTimeField(auto_now=True)
     bus_number      =models.CharField(max_length=100)
     driver_name     =models.CharField(max_length=100)
-    seat_type       =models.CharField(max_length=100, choices=SEAT_TYPE, default=1)
+    seat_type       =models.CharField(max_length=100, choices=SEAT_TYPE)
     no_seats        =models.IntegerField(default=40)
+    booked_seat     =models.ManyToManyField('Booking_seat', blank=True, default=1)
     date            =models.DateField(auto_now=False, auto_now_add=False, default=datetime.now)
     price           =models.IntegerField()
     is_active       =models.BooleanField(default= False)
     def __str__(self):
         return self.bus_name
+
+
+class Booking_seat(models.Model):
+    seat_no = models.ForeignKey(Seat, on_delete=models.CASCADE, default=1)
+    book_id= models.CharField(max_length=250, blank=True)
+    date_added=models.DateField(auto_now_add=False)
+
+
+    def __str__(self):
+        return f'{self.seat_no}{self.book_id}'

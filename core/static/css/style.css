@@ -107,9 +107,26 @@ section.inlineform{
     border-top-right-radius: 10px;
     color: white !important;
 }
+.demo-seat{
+    background-color: #28a745;
+    height: 30px;
+    width: 30px;
+    margin: 3px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.demo-seat.selected{
+    background-color: #6feaf6;
+}
+
+.demo-seat.occupied{
+    background-color: #d2cffc;
+    color: black!important;
+}
 .seat.text-center{
     font-size: 13px;
 }
+
 .seat-none{
     height: 13px;
     width: 13px;
@@ -152,24 +169,24 @@ section.inlineform{
 }
 
 .showcase{
-    padding: 5px 10px;
+    /* padding: 5px 10px; */
     list-style-type: none;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 .showcase li{
     display: flex;
-    margin: 0 30px;
+    margin: 0 5px;
     align-items: center;
     justify-content: center;
 
 }
 
- .showcase li small{
-    /* display: flex; */
-    margin-left: 30px;
-}
+ /* .showcase li small{
+    display: flex;
+    /* margin-left: 30px;
+} */
 p.text{
     margin: 5px 0;
 }
