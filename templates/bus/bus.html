@@ -70,67 +70,85 @@
                                     <div class="driver text-center">D</div>
                                 </div>
                                 <div class="seat-row">
-                                    <div class="seat text-center">A1</div>
-                                    <div class="seat text-center">A2</div>
-                                    <div class="seat text-center">B1</div>
-                                    <div class="seat text-center">B2</div>
-                                </div>
-                                <div class="seat-row">
-                                    <div class="seat text-center">A3</div>
-                                    <div class="seat text-center">A4</div>
-                                    <div class="seat text-center">B3</div>
-                                    <div class="seat text-center">B4</div>
-                                </div>
-                                <div class="seat-row">
-                                    <div class="seat text-center">A5</div>
-                                    <div class="seat text-center">A6</div>
-                                    <div class="seat text-center">B5</div>
-                                    <div class="seat text-center">B6</div>
-                                </div>
-                                <div class="seat-row">
-                                    <div class="seat text-center">A7</div>
-                                    <div class="seat text-center">A8</div>
-                                    <div class="seat text-center">B7</div>
-                                    <div class="seat text-center">B8</div>
-                                </div>
-                                <div class="seat-row">
-                                    <div class="seat text-center">A9</div>
-                                    <div class="seat text-center">A10</div>
-                                    <div class="seat text-center">B9</div>
-                                    <div class="seat text-center">B10</div>
-                                </div>
-                                <div class="seat-row">
-                                    <div class="seat text-center">A11</div>
-                                    <div class="seat text-center">A12</div>
-                                    <div class="seat text-center">B11</div>
-                                    <div class="seat text-center">B12</div>
-                                </div>
-                                <div class="seat-row">
-                                    <div class="seat text-center">A13</div>
-                                    <div class="seat text-center">A14</div>
-                                    <div class="seat text-center">B13</div>
-                                    <div class="seat text-center">B14</div>
-                                </div>
-                                <div class="seat-row">
-                                    <div class="seat text-center">A15</div>
-                                    <div class="seat text-center">A16</div>
-                                    <div class="seat text-center">B15</div>
-                                    <div class="seat text-center">B16</div>
-                                </div>
-                                <div class="seat-row">
-                                    <div class="seat text-center">A17</div>
-                                    <div class="seat text-center">A18</div>
-                                    <div class="seat text-center">B17</div>
-                                    <div class="seat text-center">B18</div>
-                                </div>
-                                <div class="seat-row">
-                                    <div class="seat text-center">A19</div>
-                                    <div class="seat text-center">A20</div>
-                                    <div class="seat text-center">B19</div>
-                                    <div class="seat text-center">B20</div>
-                                    <!-- <div class="seat"></div>
-                                    <div class="seat"></div> -->
-                                </div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                        </div>
+                                        <div class="seat-row">
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <div class="seat"></div>
+                                            <!-- <div class="seat"></div>
+                                            <div class="seat"></div> -->
+                                        </div>
+                                {% comment %} <div class="busesSeat">
+                                
+                                </div> {% endcomment %}
+                                {% comment %} "x"| {% endcomment %}
+                                     {% comment %} {% for i in "i"|ljust:"10"  %}
+                                        <div class="seat-row">
+                                        {% for j in "j"|ljust:"4"  %}
+                                        <div class="seat-row">
+                                            {% if forloop.counter == 2 %}
+                                                <div class="seat occupied text-center" id="{{forloop.counter}} {{bus.id}}">o</div>
+                                            {% else %}
+                                                <div class="seat text-center" id="{{forloop.counter}} {{bus.id}}">{{forloop.counter}}</div>
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                        </div> 
+                                    {% endfor %}
+                                </div> {% endcomment %}
                                 <ul class="showcase mt-3">
                                     <li>
                                         <div class="demo-seat">
@@ -220,20 +238,21 @@
                     <tbody>
                         <tr>
                             <td id="bus{{bus.operator.id}}">{{bus.operator.id}}</td>
-                            <td>{{bus.bus_name}}-{{bus.operator.id}}</td>
+                            <td>{{bus.bus_name}}-{{bus.id}}</td>
                             <td>{{bus.route}}-{{bus.route.id}}</td>
                             <td>{{bus.bustype}}</td>
                             <td id="fare" value="{{bus.price}}">{{bus.price}}</td>
                             <td>{{bus.seat_type}}</td>
                             <td>
-                                <button type="submit" id="book-btn" for="{{bus.price}}#{{bus.id}}" onclick='myfunc(this)' class="btn btn-sm btn-primary modal-button" data-toggle="modal" data-target="#mymodal"
+                                <button type="submit" id="book-btn" for="{{bus.price}}#{{bus.id}}" class="btn btn-sm btn-primary modal-button" onclick= "myfunc(this)" data-toggle="modal" data-target="#mymodal"
                                 data-busId="{{bus.id}}"
                                 data-busName="{{bus.bus_name}}"
                                 data-routeId="{{bus.route.id}}"
                                 data-busSeat="{{bus.no_seats}}"
                                 data-busNo="{{bus.bus_number}}"
                                 data-seatType="{{bus.seat_type}}"
-                                data-busPrice="{{bus.price}}">
+                                data-busPrice="{{bus.price}}"
+                                data-busuniqueid="{{bus.bus_id}}">
                                     book
                                 </button>
                             </td>

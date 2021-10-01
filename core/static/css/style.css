@@ -199,3 +199,6 @@ p.text span{
     background-color: #E9EBEE;
 } */
 
+.not-visible{
+    display: none;
+}

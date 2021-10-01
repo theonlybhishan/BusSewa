@@ -1,0 +1,9 @@
+                                    {% for i in "1"|ljust:"10"  %}
+                                    <div class="seat-row">
+                                        {% for j in "2"|ljust:"4"  %}
+                                        <div class="seat-row">
+                                            <div class="seat text-center" id="{{forloop.counter}}{{forloop.counter  }} {{bus.id}}">{{forloop.counter}}{{forloop.counter  }}</div>
+                                        </div>
+                                        {% endfor %}
+                                        </div>
+                                    {% endfor %}

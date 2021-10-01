@@ -59,14 +59,18 @@ class Agent(models.Model):
     #     return reverse("category_detail", kwargs={"pk": self.pk})
 class Seat(models.Model):
     bus= models.ForeignKey('Bus',on_delete= models.CASCADE, default=1)
-    seat_no= models.IntegerField()
+    seat_no= models.IntegerField(default=40)
+    bookedseat_no =models.IntegerField(default=0)
     occupant_firstname= models.CharField(max_length=200)
     occupant_lastname =models.CharField(max_length=200)
     occupant_email= models.EmailField(max_length=255)
     purchase_time= models.DateTimeField(auto_now_add=True)
+    book_id= models.CharField(max_length=250, blank=True)
+    date_added=models.DateField(auto_now_add=False,default= 1)
+
 
     def __str__(self):
-        return f"#{self.seat_no}{self.occupant_firstname}-{self.occupant_lastname}"
+        return f'{self.bookedseat_no}'
 
 
 class Bus(models.Model):
@@ -89,10 +93,10 @@ class Bus(models.Model):
 
     }
     bus_name        =models.CharField(max_length=200)
+    bus_id          = models.IntegerField(unique=True)
     # slug            =models.SlugField(max_length = 200, unique=True)
     bustype         =models.CharField(max_length=100, choices=BUS_TYPE)
     route           =models.ForeignKey(Route, on_delete=models.CASCADE)
-    no_seats        =models.IntegerField()
     bus_image       =models.ImageField(upload_to='photos/photo',blank=True)
     operator        =models.ForeignKey(Agent, on_delete=models.CASCADE)
     boarding_time   =models.TimeField()
@@ -106,7 +110,7 @@ class Bus(models.Model):
     driver_name     =models.CharField(max_length=100)
     seat_type       =models.CharField(max_length=100, choices=SEAT_TYPE)
     no_seats        =models.IntegerField(default=40)
-    booked_seat     =models.ManyToManyField('Booking_seat', blank=True, default=1)
+    booked_seat     =models.ManyToManyField('Seat', blank=True, default=[0], related_name= "booking-seat+")
     date            =models.DateField(auto_now=False, auto_now_add=False, default=datetime.now)
     price           =models.IntegerField()
     is_active       =models.BooleanField(default= False)
@@ -114,11 +118,11 @@ class Bus(models.Model):
         return self.bus_name
 
 
-class Booking_seat(models.Model):
-    seat_no = models.ForeignKey(Seat, on_delete=models.CASCADE, default=1)
-    book_id= models.CharField(max_length=250, blank=True)
-    date_added=models.DateField(auto_now_add=False)
+# class Booking_seat(models.Model):
+#     seat_no = models.ForeignKey(Seat, on_delete=models.CASCADE, default=1)
+#     book_id= models.CharField(max_length=250, blank=True)
+#     date_added=models.DateField(auto_now_add=False)
 
 
-    def __str__(self):
-        return f'{self.seat_no}{self.book_id}'
+#     def __str__(self):
+#         return f'{self.seat_no}{self.book_id}'

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="text-center">
+        <div class="spinner-border" role="status" id="spinner"></div>
+    </div>
+    <table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Operator ID</th>
+        <th scope="col">Operator Name</th>
+        <th scope="col">Route</th>
+        <th scope="col">Bus Type</th>
+        <th scope="col">Fare</th>
+        <th scope="col">Seat Type</th>
+        <th scope="col">Operator</th>
+        </tr>
+    </thead>
+    <tbody id="table-body-box">
+        
+    </tbody>
+</table>
+
+{% endblock content %}
