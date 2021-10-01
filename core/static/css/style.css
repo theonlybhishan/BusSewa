@@ -122,6 +122,8 @@ section.inlineform{
 .demo-seat.occupied{
     background-color: #d2cffc;
     color: black!important;
+    pointer-events: none;
+
 }
 .seat.text-center{
     font-size: 13px;
@@ -152,6 +154,8 @@ section.inlineform{
 .seat.occupied{
     background-color: #d2cffc;
     color: black!important;
+    pointer-events: none;
+
 }
 
 .seat:nth-of-type(2){
@@ -166,6 +170,7 @@ section.inlineform{
 .showcase .seat:not(.occupied):hover{
     cursor:default;
     transform: scale(1);
+    pointer-events: none;
 }
 
 .showcase{

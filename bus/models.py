@@ -60,7 +60,7 @@ class Agent(models.Model):
 class Seat(models.Model):
     bus= models.ForeignKey('Bus',on_delete= models.CASCADE, default=1)
     seat_no= models.IntegerField(default=40)
-    bookedseat_no =models.IntegerField(default=0)
+    bookedseat_no =models.IntegerField()
     occupant_firstname= models.CharField(max_length=200)
     occupant_lastname =models.CharField(max_length=200)
     occupant_email= models.EmailField(max_length=255)

@@ -84,7 +84,7 @@ def occupiedSeats(request):
     # occupied_seat = serializers.serialize('json',occupied)
     #  occupied=occupied.append(booked_seats)
     # print('occupied seat_type:',occupied)
-    occupied_seat = list(map(lambda seat : seat.bookedseat_no, occupied))
+    occupied_seat = list(map(lambda seat : seat.bookedseat_no - 1, occupied))
     # occupied_seat = list(occupied)
     print('occupied_seat:',occupied_seat)
     # print('occuied_seat_type',type(occupied))
