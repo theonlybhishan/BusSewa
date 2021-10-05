@@ -16,6 +16,7 @@ from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
+from bus.models import Seat
 
 # Create your views here.
 
@@ -96,9 +97,7 @@ def activate(request, uidb64, token):
         return redirect('register')
 
 
-@login_required(login_url='login')
-def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+
 
 def forgotpassword(request):
     if request.method =='POST':

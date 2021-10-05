@@ -30,6 +30,7 @@ class myAccountManager(BaseUserManager):
         )
         user.is_admin= True
         user.is_active= True
+        user.is_agent= True
         user.is_staff= True
         user.is_superadmin= True
         user.save(using=self._db)
@@ -51,6 +52,7 @@ class Account(AbstractBaseUser):
     last_login      =models.DateTimeField(auto_now_add=True)
     is_admin        =models.BooleanField(default=False)
     is_staff        =models.BooleanField(default=False)
+    is_agent        =models.BooleanField(default=False)
     is_active       =models.BooleanField(default=False)
     is_superadmin   =models.BooleanField(default=False)
 

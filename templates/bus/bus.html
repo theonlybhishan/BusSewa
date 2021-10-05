@@ -57,9 +57,13 @@
             </div>
             <div class="modal-body" id="modal-body-booking">
             <div class="row">
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-12 col-xs-12">
                     <p class="text-center" id="heading"></p>
-                    {% comment %} <form action="" type="GET"> {% endcomment %}
+                    {% if user.id is None %}
+                        <P class=" text-center"><strong>login to proceed</strong></P>
+                    {% endif %}
+                    {% comment %} <form action="/payment/" method="POST">   {% endcomment %}
+                        {% comment %} {% csrf_token %} {% endcomment %}
                         <div class="seat-container">                                
                             <div class="select-container">
                                 <div class="screen"></div>
@@ -172,41 +176,37 @@
                                 <p class="text">
                                     you have selected <span id="count">0</span> seats for a price of  Rs. <span id="total">0</span>
                                 </p>
+
                             </div>
                         </div>
+                            {% comment %} </form> {% endcomment %}
+                            
+                                {% comment %} <div  class="col-sm-6 col-xs-12 mx-auto"> {% endcomment %}
+                                    {% comment %} <form id="p-form" action="" type=""> {% endcomment %}
+                                    {% comment %} {% csrf_token %} {% endcomment %}
+                                    {{form}}
+                            
+                                    {% comment %} <div id="paypal-button-container" class="mt-5">
+                                        pay pal button will load here
+                                </div>
+                                <a href=" {% url 'home' %} ">lol</a> {% endcomment %}
+                            {% if user.id is None %}
+                            <div>
+                                <a href"{% url 'login' %}" class="btn btn-primary text-white"> login first<a>
+                            </div>
+                            {% else %}
+                            <div class='cta my-3'>
+                                <button type="submit" class='purchase-btn btn btn-primary' >Proceed To Pay</button>
+                            </div>
+                            {% endif %}
+                        </div>
                     {% comment %} </form> {% endcomment %}
-                </div>
-                <div class="col-sm-6 col-xs-12">
-                    <form action="" type="">
-                        <div class="form-group">
-                        <label for="pickup_location">Name of Passenger*</label>
-                            <input name="passenger" id="name-of-passenger" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                        <label for="Drop-location">E-mail Address*</label>
-                            <input name="drop_location" id="drop_location" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                        <label for="Drop-location">Mobile Number*</label>
-                            <input name="passenger" id="Total_person" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                        <label for="pickup_location">Pickup Points</label>
-                            <select name="pickup_location" id="pickup_location" class="form-control">
-                            
-                            
-                                <option value="">{{i.pickup_point}}</option>
-                            
-                            </select>
-                        </div>
-                        <a href="" class="btn btn-primary btn-md btn-block">Continue</a>  
-                    </form>
                 </div>
             </div>
             </div>
             <div class="modal-footer">
-            <input type="button" value="" class="btn btn-sm bt-primary" placeholder="Keep On Going">
-                {% comment %} <button type="button" class="btn btn-primary">Keep on going</button> {% endcomment %}
+            {% comment %} <input type="button" value="" class="btn btn-sm bt-primary" placeholder="Keep On Going"> {% endcomment %}
+            {% comment %} <button type="button" class="btn btn-primary">Keep on going</button> {% endcomment %}
             </div>
             </div>
         </div>
@@ -214,14 +214,14 @@
 <section class="results">
     <div class="container">
         <div class="row mt-5">
-            <div class="col-md-2 col-xs-12">
-                <h5><b>FILTERS</b></h5><hr>
+            {% comment %} <div class="col-md-2 col-xs-12"> {% endcomment %}
+                {% comment %} <h5><b>FILTERS</b></h5><hr>
                 <div class="filters-section">
                     <a href="">Reshudable</a><hr>
                     <p><b>Amneties</b></p><hr> 
-                </div>
-            </div>
-            <div class="col-md-10 col-xs-12">
+                </div> {% endcomment %}
+            {% comment %} </div> {% endcomment %}
+            <div class="col-md-12 col-xs-12">
                 <table class="table">
                     <thead>
                         <tr>
@@ -388,4 +388,47 @@
         </div>
     </div>
 </section>
+<script>
+    // Render the PayPal button into #paypal-button-container
+
+{% comment %} var amount = document.getElementById('total').textContent
+console.log(amount)
+paypal.Buttons({
+    style: {
+        color:  'blue',
+        shape:  'pill',
+        label:  'pay',
+        height: 40
+    },
+
+    // Set up the transaction
+    createOrder: function(data, actions) {
+        return actions.order.create({
+            purchase_units: [{
+                amount: {
+                    value: '88.44'
+                }
+            }]
+        });
+    },
+
+    // Finalize the transaction
+    onApprove: function(data, actions) {
+        return actions.order.capture().then(function(orderData) {
+            // Successful capture! For demo purposes:
+            console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+            var transaction = orderData.purchase_units[0].payments.captures[0];
+            alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+            // Replace the above to show a success message within this page, e.g.
+            // const element = document.getElementById('paypal-button-container');
+            // element.innerHTML = '';
+            // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+            // Or go to another URL:  actions.redirect('thank_you.html');
+        });
+    }
+
+
+}).render('#paypal-button-container'); {% endcomment %}
+</script>
 {% endblock content %}

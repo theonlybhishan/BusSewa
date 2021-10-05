@@ -23,15 +23,17 @@
          {% comment %} <li class="nav-item">
         <a class="nav-link" href="{% url 'test' %}">Test <span class="sr-only"></span></a>
         </li> {% endcomment %}
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Manage Booking
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Print Ticket</a><hr>
-          <a class="dropdown-item" href="#">Cancel Ticket</a>
-        </div>
-      </li>
+        {% if user.id is None %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Manage Booking
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% comment %} <a class="dropdown-item" href="#">Print Ticket</a><hr> {% endcomment %}
+            <a class="dropdown-item" href="{% url 'cancel_ticket' %}">Cancel Ticket</a>
+          </div>
+        </li>
+      {% endif %}
       {% if user.id is None %}
         <li class="nav-item dropdown mt-2 ml-2">
         <a href="{% url 'login' %}">Login</a> <span class="dark-transp"> | </span>

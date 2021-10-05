@@ -1,5 +1,6 @@
 from django.urls import path
 from .import views
+# from bus.models import 'view'
 
 urlpatterns = [
     path('register/', views.register, name='register'), #register_url
@@ -9,6 +10,7 @@ urlpatterns = [
     path('forgotpassword/', views.forgotpassword, name='forgotpassword'), #forgot password
     path('resetpassword_validate/<uidb64>/<token>/', views.resetpassword_validate, name='resetpassword_validate'),#resetpassword activate
     path('resetpassword/', views.resetpassword, name='resetpassword'),
-    path('dashboard/', views.dashboard, name='dashboard'),#dashboard link
-    path('',views.dashboard, name='dashboard'),
+    # path('dashboard/', views.dashboard, name='dashboard'),#dashboard link
+    # path('')
+    # path('',views.dashboard, name='dashboard'),
 ]

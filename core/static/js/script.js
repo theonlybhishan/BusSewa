@@ -43,6 +43,9 @@ function updateSelectedCount(){
     console.log(selectedSeatsCount);
     count.innerText = selectedSeatsCount;
     total.innerText = selectedSeatsCount*ticketPrice;
+    totalMoney = total.innerText;
+    // localStorage.setItem('priceSelectedSeats',totalMoney);
+    console.log('total',totalMoney)
     // myfunc(lol)
 }
 
@@ -117,6 +120,9 @@ modalBtns.forEach(modalBtn => modalBtn.addEventListener('click', ()=>{
     const busSeat = modalBtn.getAttribute('data-busSeat');
     const seatType = modalBtn.getAttribute('data-seatType');
     busPrice= modalBtn.getAttribute('data-busPrice');
+    const ctaBtn = document.querySelector('button.purchase-btn')
+    console.log('ctaBtn:',ctaBtn)
+    // console.log('totalMoney:',totalMoney)
     // console.log(busPrice)
 
     localStorage.setItem('selectedBusIndex',busId);
@@ -137,12 +143,41 @@ modalBtns.forEach(modalBtn => modalBtn.addEventListener('click', ()=>{
         const response = await fetch(url,{
             method:"POST",
             headers:{
-                "Content-Type":"application/json"
+                "content-Type":"application/json"
             },
             body:JSON.stringify(body)
         })
         return response.json()
     }
+    function getAPI(url,body){
+        fetch(url,{
+            method:"POST",
+            headers:{
+                "content-Type":"application/json"
+            },
+            body:JSON.stringify(body)
+        })
+        .then(response => {
+            location.replace('http://127.0.0.1:8000/esewa_payment/?bus_id='+busId)
+            console.log('then data====================')
+        })
+        .catch(error => {
+            // handle the error
+            console.log('catch data=======================')
+        });
+    }
+    // function sendData(){
+    //     fetch(url,{
+    //         method:"POST",
+    //         headers:{
+    //             "Content-type":"application/json",
+    //         }
+    //         body: JSON.stringify
+    //     })
+    // }
+
+
+    
     contactAPI("/occupied/",{busName, busId}).then(data=>{
         console.log(data)
         const occupied_seat = data["occupied_seats"]
@@ -179,8 +214,149 @@ modalBtns.forEach(modalBtn => modalBtn.addEventListener('click', ()=>{
         }
         updateSelectedCount()
     })
+    ctaBtn.addEventListener("click",e=>{
+    // const form = document.getElementById('p-form')
+    
+    // const csrf = document.getElementsByName('csrfmiddlewaretoken')
+    // form.addEventListener('submit',e=>{
+        // const fd = new FormData()
+        // fd.append('csrfmiddlewaretoken',csrf[0].value)
+        // fd.append('firstName',firstName.value)
+        // fd.append('lastName',lastName.value)
+        // fd.append('emailId',emailId.value)
+        // fd.append('phoneNumber',phoneNumber.value)
+        // fd.append('pickupArea',pickuparea.value)
+        // fd.append('dropArea',dropArea.value)
+        const bus_title = busName
+        console.log('busName:',busName)
+        const bus_id = busId
+        const seat_list = JSON.parse(localStorage.getItem("selectedSeats"))
+        if(seat_list != null && seat_list.length > 0){
+            const firstName = document.getElementById('firstnameid')
+            console.log('firstName',firstName)
+            const lastName = document.getElementById('lastnameid')
+            const phoneNumber = document.getElementById('phonenum')
+            const pickupArea = document.getElementById('pickuparea')
+            const dropArea = document.getElementById('droparea')
+            data={
+                bus_title,
+                bus_id,
+                seat_list,
+                'firstName':firstName.value,
+                'lastName':lastName.value,
+                'phoneNumber':phoneNumber.value,
+                'pickupArea':pickupArea.value,
+                'dropArea':dropArea.value
 
 
+            }
+            console.log('api before data',data)
+            getAPI("/payment/",data)
+            // $.ajax({
+            //     url:"/payment/",
+            //     type:"POST",
+            //     data:busdata,
+            //     dataType:"json",
+            //     success : function(data){
+            //         console.log('ajax-data:',data)
+            //     },
+
+            // });
+            // .then(res=>{
+            //     if(res["payment_url"]){
+            //         //redirect the customer
+            //         window.location.href = res["payment_url"]
+            //     }else{
+            //         console.log('error')
+            //     }
+            // }).catch(e=>{
+            //     console.log(e)
+            // })
+        }
+    })
+
+    // const form = document.getElementById('p-form')
+    // const firstName = document.getElementById('firstnameid')
+    // const lastName = document.getElementById('lastnameid')
+    // const emailId = document.getElementById('emailid')
+    // const phoneNumber = document.getElementById('phonenum')
+    // const pickupArea = document.getElementById('pickuparea')
+    // const dropArea = document.getElementById('droparea')
+    // const csrf = document.getElementsByName('csrfmiddlewaretoken')
+    // form.addEventListener('submit',e=>{
+    //     const fd = new FormData()
+    //     fd.append('csrfmiddlewaretoken',csrf[0].value)
+    //     fd.append('firstName',firstName.value)
+    //     fd.append('lastName',lastName.value)
+    //     fd.append('emailId',emailId.value)
+    //     fd.append('phoneNumber',phoneNumber.value)
+    //     fd.append('pickupArea',pickuparea.value)
+    //     fd.append('dropArea',dropArea.value)
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: url,
+    //         enctype: 'multipart/form-data',
+    //         data:fd,
+    //         success: function(response){
+    //             console.log(response)
+    //         },
+    //         error:function(error){
+    //             console.log(error)
+    //         },
+    //         cache:false,
+    //         contentType:false,
+    //         processData:false
+    //     })
+    // })
+
+    // console.log(form)
+    // paypal
+    // const totalMoney = localStorage.getItem('priceSelectedSeats')
+    // console.log('totalMoney:',totalMoney)
+    // forEach(updateSelectedCount(){
+    //     amount
+    // }
+    //     )
+    // document.addEventListener("DOMContentLoaded", function(){
+    //     //dom is fully loaded, but maybe waiting on images & css files
+    // });
+    // paypal.Buttons({
+    //     style: {
+    //         color:  'blue',
+    //         shape:  'pill',
+    //         label:  'pay',
+    //         height: 40
+    //     },
+
+    //     // Set up the transaction
+    //     createOrder: function(data, actions) {
+    //         return actions.order.create({
+    //             purchase_units: [{
+    //                 amount: {
+    //                     value: '5.44'
+    //                 }
+    //             }]
+    //         });
+    //     },
+
+    //     // Finalize the transaction
+    //     onApprove: function(data, actions) {
+    //         return actions.order.capture().then(function(orderData) {
+    //             // Successful capture! For demo purposes:
+    //             console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+    //             var transaction = orderData.purchase_units[0].payments.captures[0];
+    //             alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+    //             // Replace the above to show a success message within this page, e.g.
+    //             // const element = document.getElementById('paypal-button-container');
+    //             // element.innerHTML = '';
+    //             // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+    //             // Or go to another URL:  actions.redirect('thank_you.html');
+    //         });
+    //     }
+
+
+    // }).render('#paypal-button-container');
 
 }))
 // });

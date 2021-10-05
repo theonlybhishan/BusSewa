@@ -1,12 +1,14 @@
 from django.db import models
 from datetime import datetime
+
+from accounts.models import Account
 # from django.db.models.base import ModelState
 
 # from django.utils import tree
 # from booking.models import Seat
 
 
-class Amneties(models.Model):
+class Services(models.Model):
     name=models.CharField(max_length=100)
     def __str__(self):
         return self.name
@@ -57,22 +59,6 @@ class Agent(models.Model):
 
     # def get_absolute_url(self):
     #     return reverse("category_detail", kwargs={"pk": self.pk})
-class Seat(models.Model):
-    bus= models.ForeignKey('Bus',on_delete= models.CASCADE, default=1)
-    seat_no= models.IntegerField(default=40)
-    bookedseat_no =models.IntegerField()
-    occupant_firstname= models.CharField(max_length=200)
-    occupant_lastname =models.CharField(max_length=200)
-    occupant_email= models.EmailField(max_length=255)
-    purchase_time= models.DateTimeField(auto_now_add=True)
-    book_id= models.CharField(max_length=250, blank=True)
-    date_added=models.DateField(auto_now_add=False,default= 1)
-
-
-    def __str__(self):
-        return f'{self.bookedseat_no}'
-
-
 class Bus(models.Model):
     BUS_TYPE        =(
         ('AC','AC'),
@@ -93,7 +79,7 @@ class Bus(models.Model):
 
     }
     bus_name        =models.CharField(max_length=200)
-    bus_id          = models.IntegerField(unique=True)
+    bus_id          = models.IntegerField(unique=True, default=True)
     # slug            =models.SlugField(max_length = 200, unique=True)
     bustype         =models.CharField(max_length=100, choices=BUS_TYPE)
     route           =models.ForeignKey(Route, on_delete=models.CASCADE)
@@ -102,7 +88,7 @@ class Bus(models.Model):
     boarding_time   =models.TimeField()
     end_time        =models.TimeField()
     duration        =models.IntegerField(blank=True)
-    amneties        =models.ManyToManyField(Amneties, blank=True)
+    amneties        =models.ManyToManyField(Services, blank=True)
     discount        =models.IntegerField()
     created_date    =models.DateTimeField(auto_now_add=True)
     modified_date   =models.DateTimeField(auto_now=True)
@@ -115,7 +101,33 @@ class Bus(models.Model):
     price           =models.IntegerField()
     is_active       =models.BooleanField(default= False)
     def __str__(self):
-        return self.bus_name
+        return f'{self.bus_id}.{self.bus_name}=>{self.route}'
+
+
+class Seat(models.Model):
+    user = models.ForeignKey(Account,on_delete=models.CASCADE, null=True)
+    bus= models.ForeignKey(Bus,on_delete= models.CASCADE,null= True, blank= True)
+    seat_no= models.IntegerField(blank=True, null=True)
+    bookedseat_no =models.IntegerField(blank=True, null=True)
+    occupant_firstname= models.CharField(max_length=200)
+    occupant_lastname =models.CharField(max_length=200)
+    occupant_number = models.CharField(max_length=100, blank=True)
+    pickup_area =models.CharField(max_length=100, blank=True)
+    drop_area = models.CharField(max_length=100, blank=True)
+    occupant_email= models.EmailField(max_length=255)
+    purchase_time= models.DateTimeField(auto_now_add=True)
+    # book_id= models.CharField(max_length=250, blank=True)
+    date_added=models.DateTimeField(auto_now_add=True)
+    # datetime_booked = models.DateTimeField()
+    is_booked = models.BooleanField(default=False)
+    is_paid = models.BooleanField(default=False)
+    
+
+    def __str__(self):
+        return f'{self.bookedseat_no}'
+
+
+
 
 
 # class Booking_seat(models.Model):
@@ -126,3 +138,19 @@ class Bus(models.Model):
 
 #     def __str__(self):
 #         return f'{self.seat_no}{self.book_id}'
+
+class PaymentIntent(models.Model):
+    referrer = models.URLField()
+    bus_title = models.CharField(max_length=255)
+    bus_id = models.IntegerField()
+    seat_numbers = models.CharField(max_length=200)
+
+
+class Payment(models.Model):
+    user= models.ForeignKey(Account, on_delete=models.CASCADE, related_name='payment_name') 
+    transection_id = models.CharField(max_length=255)
+    transection_amount= models.DecimalField(max_digits=8,decimal_places=2)
+
+    def __str__(self):
+        return f'{self.transection_id}{self.transection_amount}'
+    

@@ -7,3 +7,30 @@
                                         {% endfor %}
                                         </div>
                                     {% endfor %}
+
+
+
+
+                <div class="card-body">
+                    <div class="row"> 
+                        <div class="col-md-8">
+                            <h6 class="text-muted">Delivery to</h6>
+                            <p>Michael Jackson <br>  
+                            Phone +1234567890 Email: myname@pixsellz.com <br>
+                            Location: Home number, Building name, Street 123,  Tashkent, UZB <br> 
+                            P.O. Box: 100123
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="text-muted">Payment</h6>
+                            <span class="text-success">
+                                <i class="fab fa-lg fa-cc-visa"></i>
+                                Visa  **** 4216  
+                            </span>
+                            <p>Subtotal: $356 <br>
+                            Shipping fee:  $56 <br> 
+                            <span class="b">Total:  $456 </span>
+                            </p>
+                        </div>
+                    </div> 
+                </div> 
