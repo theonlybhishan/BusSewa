@@ -226,23 +226,23 @@
                     <thead>
                         <tr>
                         <th scope="col">Operator ID</th>
-                        <th scope="col">Operator Name</th>
                         <th scope="col">Route</th>
+                        <th scope="col">Bus Name</th>
                         <th scope="col">Bus Type</th>
                         <th scope="col">Fare</th>
-                        <th scope="col">Seat Type</th>
+                        {% comment %} <th scope="col">Seat Type</th> {% endcomment %}
                         <th scope="col">Operator</th>
                         </tr>
                     </thead>
                 {% for bus in bus %}
                     <tbody>
                         <tr>
-                            <td id="bus{{bus.operator.id}}">{{bus.operator.id}}</td>
-                            <td>{{bus.bus_name}}-{{bus.id}}</td>
-                            <td>{{bus.route}}-{{bus.route.id}}</td>
+                            <td id="bus{{bus.operator.id}}">{{forloop.counter}}</td>
+                            <td>{{bus.route}}</td>
+                            <td>{{bus.bus_name}}</td>
                             <td>{{bus.bustype}}</td>
                             <td id="fare" value="{{bus.price}}">{{bus.price}}</td>
-                            <td>{{bus.seat_type}}</td>
+                            {% comment %} <td>{{bus.seat_type}}</td> {% endcomment %}
                             <td>
                                 <button type="submit" id="book-btn" for="{{bus.price}}#{{bus.id}}" class="btn btn-sm btn-primary modal-button" onclick= "myfunc(this)" data-toggle="modal" data-target="#mymodal"
                                 data-busId="{{bus.id}}"
