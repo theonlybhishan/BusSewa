@@ -303,8 +303,28 @@ def delete_ticket(request,pk):
 
 @staff_member_required
 def admin_dashboard(request):
-    seat = Seat.objects.all()
+    getbus = Bus.objects.all()
+    bus_count=int(getbus.count())
+    # print('************************************dsdsdsdsd0s2dsd48sd415sd',bus_count)
+    # seat = Seat.objects.filter(bus__pk = getbus.pk , bus__bus_name = getbus.bus_name)
+
     context={
-        'seat':seat
+        # 'seats':seat,
+        'buses':getbus,
+        'bus_count':bus_count
     }
     return render(request,'accounts/admin_dashboard.html',context)
+
+
+
+def bus_profile(request,id):
+    bus = Bus.objects.get(pk=id)
+    print('******************* bus',bus)
+    seat = Seat.objects.filter(bus__pk = id)
+    print('******************************seat',seat)
+    context={
+        'pro_bus': bus,
+        'seats':seat
+    }
+
+    return render(request,'accounts/bus_profile.html',context)

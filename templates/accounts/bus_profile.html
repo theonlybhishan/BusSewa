@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class= "container">
+    <p class="text-center mt-5"><strong>Ticket List of {{pro_bus.bus_name}} ({{pro_bus.route}})</strong></p>
+
+    <table class="table">
+    <thead>
+        <tr>
+        {% comment %} <th scope="col">#</th> {% endcomment %}
+        <th scope="col">Seat Number</th>
+        <th scope="col">Occupant Name</th>
+        <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for seat in seats %}
+        <tr>
+            {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}
+            <td>{{seat.bookedseat_no}}</td>
+            <td>{{seat.occupant_firstname}} {{seat.occupant_lastname}}</td>
+            {% if seat.is_paid is True %}
+                <td>paid</td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table> 
+</div>   
+{% comment %} hi welcome to{{ pro_bus.bus_name }} profile {% endcomment %}
+
+{% comment %} {% for bus in pro_bus %}
+    <p>{{bus.bus_name}}</p>
+{% endfor %} {% endcomment %}
+
+{% endblock content %}

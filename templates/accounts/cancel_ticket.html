@@ -44,12 +44,12 @@
                                      {% for data in booked  %}
                                         <tr>
                                         <th scope="row">{{forloop.counter}}</th>
-                                            <td>{{data.user}}</td>
+                                            <td>{{data.user.first_name}}</td>
                                             <td>{{data.bus.bus_name}}</td>
                                             <td>{{data.bookedseat_no}}</td>
                                             <td>{{data.bus.route}}</td>
                                             <td>{{data.bus.price}}</td>
-                                            <td><a class="btn btn-sm btn-primary text-white" href="{% url 'delete_ticket' data.pk %}">cancel</a></td>
+                                            <td><a class="btn btn-sm btn-danger text-white" href="{% url 'delete_ticket' data.pk %}">Cancel Ticket</a></td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
