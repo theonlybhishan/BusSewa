@@ -19,7 +19,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 
 
-
+# all views for bus
 
 import uuid
 

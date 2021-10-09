@@ -19,6 +19,7 @@ from django.core.mail import EmailMessage
 from bus.models import Seat
 
 # Create your views here.
+#views for accounts
 
 def register(request):
     if request.method=='POST':
