@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 # import os
-from decouple import config
+# from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,8 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-e4b+83vi5go(@rg#)ugv5k$-nqag^7h)xd$=uuw_2$5grza%s#'
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 'django-insecure-e4b+83vi5go(@rg#)ugv5k$-nqag^7h)xd$=uuw_2$5grza%s#'
+# SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -147,13 +147,13 @@ MESSAGE_TAGS = {
 
 #paystack config
 
-PAYSTACK_SECRET = config('PAYSTACK_SECRET')
+# PAYSTACK_SECRET = config('PAYSTACK_SECRET')
 
 
 # smtp configuration
 
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT= 587
-EMAIL_HOST_USER= config('EMAIL_USER')
-EMAIL_HOST_PASSWORD=config('EMAIL_PASSWORD')
+EMAIL_HOST_USER= 'testnepal0@gmail.com'
+EMAIL_HOST_PASSWORD='codeedoc'
 EMAIL_USE_TLS= True
