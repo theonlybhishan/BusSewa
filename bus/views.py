@@ -34,7 +34,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     bus=Bus.objects.filter(bus_name="Agni Yatayat", pk=1)
-    print('bus:',bus)
     booked_seat = Seat.objects.filter(bus__bus_id=5)
     print('booked-seats:',type(booked_seat))
     return render(request, 'bus/home.html')
