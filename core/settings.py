@@ -11,8 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-import os
-import django_heroku
+# import os
 # from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,9 +25,9 @@ SECRET_KEY = 'django-insecure-e4b+83vi5go(@rg#)ugv5k$-nqag^7h)xd$=uuw_2$5grza%s#
 # SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [".herokuapp.com","*"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
-    'bus',
-    'booking'
+    'accounts.apps.AccountsConfig',
+    'bus.apps.BusConfig',
+    'booking.apps.BookingConfig'
 ]
 
 MIDDLEWARE = [
@@ -114,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Kathmandu'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -127,8 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
+STATIC_ROOT = BASE_DIR/'static'
 
 
 STATICFILES_DIRS = [
@@ -137,8 +135,6 @@ STATICFILES_DIRS = [
 #media files configuration
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -162,45 +158,3 @@ EMAIL_PORT= 587
 EMAIL_HOST_USER= 'testnepal0@gmail.com'
 EMAIL_HOST_PASSWORD='codeedoc'
 EMAIL_USE_TLS= True
-
-# django_heroku.settings(locals())
- # Debugging in heroku live
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': ('%(asctime)s [%(process)d] [%(levelname)s] ' +
-                       'pathname=%(pathname)s lineno=%(lineno)s ' +
-                       'funcname=%(funcName)s %(message)s'),
-            'datefmt': '%Y-%m-%d %H:%M:%S'
-        },
-        'simple': {
-            'format': '%(levelname)s %(message)s'
-        }
-    },
-    'handlers': {
-        'null': {
-            'level': 'DEBUG',
-            'class': 'logging.NullHandler',
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
-        }
-    },
-    'loggers': {
-        'testlogger': {
-            'handlers': ['console'],
-            'level': 'INFO',
-        }
-    }
-}
-
-DEBUG_PROPAGATE_EXCEPTIONS = True
-COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
-
-
-# Activate Django-Heroku.
-django_heroku.settings(locals())
