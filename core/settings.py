@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-# import os
+import os
 # from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -126,7 +126,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR/'static'
+STATIC_ROOT = os.path.join(BASE_DIR/'static')
+
 
 
 STATICFILES_DIRS = [
@@ -135,6 +136,8 @@ STATICFILES_DIRS = [
 #media files configuration
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -158,3 +161,5 @@ EMAIL_PORT= 587
 EMAIL_HOST_USER= 'testnepal0@gmail.com'
 EMAIL_HOST_PASSWORD='codeedoc'
 EMAIL_USE_TLS= True
+
+# django_heroku.settings(locals())
