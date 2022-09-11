@@ -4,11 +4,12 @@ from.models import Account
 # Register your models here.
 
 class AccountAdmin(UserAdmin):
-    list_display        =('email','first_name', 'last_name', 'username','date_joined', 'last_login', 'is_active','is_agent','is_staff')
+    list_display        =('email','first_name', 'last_name','role', 'username','date_joined', 'last_login', 'is_active','is_verified','is_staff')
     list_display_links  =('email','first_name', 'last_name')
     readonly_fields     =('last_login', 'date_joined')
     ordering            =('-date_joined',)
     filter_horizontal   =()
-    list_filter         =()
+    list_filter         =('role',)
+    search_fields       =('first_name', 'last_name','role', 'username','date_joined',)
     fieldsets           =()
 admin.site.register(Account, AccountAdmin)

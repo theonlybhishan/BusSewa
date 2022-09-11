@@ -1,6 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
-from django.http.request import RAISE_ERROR
+from django.contrib.auth.models import AbstractBaseUser,BaseUserManager,PermissionsMixin
+# from django.http.request import RAISE_ERROR
 
 # Create your models here.
 class myAccountManager(BaseUserManager):
@@ -38,13 +38,25 @@ class myAccountManager(BaseUserManager):
 
 
 
-class Account(AbstractBaseUser):
+class Account(AbstractBaseUser, PermissionsMixin):
+    SUPER_ADMIN = 1
+    BUS_VENDOR = 2
+    HOTEL_VENDOR = 3
+    CUSTOMER = 4
+
+    ROLE_CHOICE = (
+        (SUPER_ADMIN, 'Admin'),
+        (BUS_VENDOR, 'Bus'),
+        (HOTEL_VENDOR, 'Hotel'),
+        (CUSTOMER, 'Customer'),
+    )
+
     first_name      =models.CharField(max_length=50)
     last_name       =models.CharField(max_length=50)
     username        =models.CharField(max_length=50, unique=True)
     email           =models.EmailField(max_length=100, unique=True)
     phone_number    =models.CharField(max_length=100)
-    
+    role            = models.PositiveSmallIntegerField(choices=ROLE_CHOICE, blank=True, null=True)
 
     #required
 
@@ -52,7 +64,7 @@ class Account(AbstractBaseUser):
     last_login      =models.DateTimeField(auto_now_add=True)
     is_admin        =models.BooleanField(default=False)
     is_staff        =models.BooleanField(default=False)
-    is_agent        =models.BooleanField(default=False)
+    is_verified        =models.BooleanField(default=False)
     is_active       =models.BooleanField(default=False)
     is_superadmin   =models.BooleanField(default=False)
 
@@ -68,5 +80,16 @@ class Account(AbstractBaseUser):
     def has_perm(self, perm, obj=None):
         return self.is_admin
 
-    def has_module_perms(self, add_label):
+    def has_module_perms(self, app_label):
         return True
+
+    def get_role(self):
+        if self.role == 1:
+            user_role = 'Admin'
+        elif self.role == 2:
+            user_role = 'Bus'
+        elif self.role ==3:
+            user_role = 'Hotel'
+        elif self.role ==3:
+            user_role = 'Customer'
+        return user_role
