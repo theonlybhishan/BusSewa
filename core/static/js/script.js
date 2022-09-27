@@ -14,6 +14,7 @@ var busPrice
 var busuniqueid
 const container = document.querySelector('.select-container');
 const seats = document.querySelectorAll('.seat-row .seat:not(.occupied)');
+const reward= document.getElementById('reward');
 const count= document.getElementById('count');
 const total = document.getElementById('total');
 const price = document.getElementById('fare');
@@ -43,9 +44,13 @@ function updateSelectedCount(){
     console.log(selectedSeatsCount);
     count.innerText = selectedSeatsCount;
     total.innerText = selectedSeatsCount*ticketPrice;
+    reward.innerText = (selectedSeatsCount*ticketPrice)/100;
+
+    totalReward= reward.innerText;
     totalMoney = total.innerText;
     // localStorage.setItem('priceSelectedSeats',totalMoney);
-    console.log('total',totalMoney)
+    console.log('total:',totalRoney)
+    console.log('reward:',totalRoney)
     // myfunc(lol)
 }
 
@@ -274,7 +279,13 @@ modalBtns.forEach(modalBtn => modalBtn.addEventListener('click', ()=>{
             // })
         }
     })
+    // for( let i=0; i< localStorage.length; i++){
+    //     // const 
+    //     const key = localStorage.getItem.key();
+    //     const value = localStorage.getItem(key);
+    // }
 
+    // console.log(key)  
     // const form = document.getElementById('p-form')
     // const firstName = document.getElementById('firstnameid')
     // const lastName = document.getElementById('lastnameid')

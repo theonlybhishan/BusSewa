@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-e4b+83vi5go(@rg#)ugv5k$-nqag^7h)xd$=uuw_2$5grza%s#
 # SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -41,7 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'bus.apps.BusConfig',
-    'booking.apps.BookingConfig'
+    'booking.apps.BookingConfig',
+    'hotel.apps.HotelConfig',
+    'crispy_forms',
+    #django rest framework
+    'rest_framework',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +73,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'booking.context_processors.counter',
+
             ],
         },
     },
@@ -127,15 +134,12 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static")
-# ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR/'static'
 
-
-# STATICFILES_DIRS = [
-#     'core/static',
-# ]
+STATICFILES_DIRS = [
+    'core/static',
+]
 
 
 #media files configuration
@@ -165,3 +169,5 @@ EMAIL_PORT= 587
 EMAIL_HOST_USER= 'testnepal0@gmail.com'
 EMAIL_HOST_PASSWORD='hvlvkbplbwlyjfzi'
 EMAIL_USE_TLS= True
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

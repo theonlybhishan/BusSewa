@@ -1,7 +1,12 @@
+from pyexpat import model
 from django.db import models
 from datetime import datetime
 
 from accounts.models import Account
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.core.exceptions import ValidationError
+
 # from django.db.models.base import ModelState
 
 # from django.utils import tree
@@ -59,6 +64,13 @@ class Agent(models.Model):
 
     # def get_absolute_url(self):
     #     return reverse("category_detail", kwargs={"pk": self.pk})
+
+def seat_check(value):
+    if value <= 40:
+        return value
+    else:
+        raise ValidationError("Total number of seat on bus are only 40")
+
 class Bus(models.Model):
     BUS_TYPE        =(
         ('AC','AC'),
@@ -78,6 +90,7 @@ class Bus(models.Model):
         ('3*3','3*3')
 
     }
+    user = models.ForeignKey(Account,on_delete=models.CASCADE, null=True)
     bus_name        =models.CharField(max_length=200)
     bus_id          = models.IntegerField(unique=True, default=True)
     # slug            =models.SlugField(max_length = 200, unique=True)
@@ -99,16 +112,17 @@ class Bus(models.Model):
     booked_seat     =models.ManyToManyField('Seat', blank=True, default=[0], related_name= "booking-seat+")
     date            =models.DateField(auto_now=False, auto_now_add=False, default=datetime.now)
     price           =models.IntegerField()
+    rating           =models.IntegerField(default=2)
     is_active       =models.BooleanField(default= False)
     def __str__(self):
         return f'{self.bus_id}.{self.bus_name}=>{self.route}'
-
+    
 
 class Seat(models.Model):
     user = models.ForeignKey(Account,on_delete=models.CASCADE, null=True)
     bus= models.ForeignKey(Bus,on_delete= models.CASCADE,null= True, blank= True)
     seat_no= models.IntegerField(blank=True, null=True)
-    bookedseat_no =models.IntegerField(blank=True, null=True)
+    bookedseat_no =models.IntegerField(blank=True, null=True,validators =[seat_check])
     occupant_firstname= models.CharField(max_length=200)
     occupant_lastname =models.CharField(max_length=200)
     occupant_number = models.CharField(max_length=100, blank=True)
@@ -121,12 +135,23 @@ class Seat(models.Model):
     # datetime_booked = models.DateTimeField()
     is_booked = models.BooleanField(default=False)
     is_paid = models.BooleanField(default=False)
-    
-
     def __str__(self):
         return f'{self.bookedseat_no}'
 
 
+class Seatdetail(models.Model):
+    # seat = models.ForeignKey(Seat, models.CASCADE, null=True, blank=True)
+    seat_no = models.IntegerField(blank=True)
+    seat_name = models.CharField(blank=True, max_length=10)
+    lastseat  = models.BooleanField(default=False)
+    last_seat_no = models.PositiveIntegerField(default=30)
+    first_seat = models.BooleanField(default=False)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
+    object_id = models.PositiveIntegerField(null=True)
+    seat = GenericForeignKey('content_type', 'object_id')
+
+    def __str__(self):
+        return f'{self.seat}.{self.seat_no}=>{self.seat_name}'
 
 
 
@@ -153,4 +178,19 @@ class Payment(models.Model):
 
     def __str__(self):
         return f'{self.transection_id}{self.transection_amount}'
+
+
+class Cart(models.Model):
+    cart_id= models.CharField(max_length= 250, blank= True)
+    date_added = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.cart_id
+
+class CartItem(models.Model):
+    # user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Bus, on_delete=models.CASCADE)
+    quantity = models.IntegerField( default=0)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)
+    is_active = models.BooleanField(default=True)
     

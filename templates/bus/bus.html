@@ -62,8 +62,8 @@
                     {% if user.id is None %}
                         <P class=" text-center"><strong>login to proceed</strong></P>
                     {% endif %}
-                    {% comment %} <form action="/payment/" method="POST">   {% endcomment %}
-                        {% comment %} {% csrf_token %} {% endcomment %}
+                    <form action="{% url 'cart' %}" method="POST">  
+                        {% csrf_token %}
                         <div class="seat-container">                                
                             <div class="select-container">
                                 <div class="screen"></div>
@@ -174,7 +174,8 @@
                                 </ul>
 
                                 <p class="text">
-                                    you have selected <span id="count">0</span> seats for a price of  Rs. <span id="total">0</span>
+                                    you have selected <span id="count">0</span> seats for a price of  Rs. <span id="total">0</span><br>
+                                    you have selected <span id="count">0</span> seats for a price of  Rs. <span id="total">0</span><br>
                                 </p>
 
                             </div>
@@ -192,15 +193,16 @@
                                 <a href=" {% url 'home' %} ">lol</a> {% endcomment %}
                             {% if user.id is None %}
                             <div>
-                                <a href"{% url 'login' %}" class="btn btn-primary text-white"> login first<a>
+                                <a  class="btn btn-primary text-white" href"{% url 'login' %}"> login first<a>
                             </div>
                             {% else %}
                             <div class='cta my-3'>
-                                <button type="submit" class='purchase-btn btn btn-primary' > Pay Esewa</button>
+                                <a type="submit" href="{% url 'cart' %}" class='purchase-btn btn btn-primary text-white' > Pay Esewa</a>
+                                {% comment %} <button class='btn btn-primary' href="{% url 'cart' %}"> Proceed to pay</button> {% endcomment %}
                             </div>
                             {% endif %}
                         </div>
-                    {% comment %} </form> {% endcomment %}
+                    </form>
                 </div>
             </div>
             </div>
@@ -211,183 +213,205 @@
             </div>
         </div>
     </div>
-<section class="results">
-    <div class="container">
-        <div class="row mt-5">
-            {% comment %} <div class="col-md-2 col-xs-12"> {% endcomment %}
-                {% comment %} <h5><b>FILTERS</b></h5><hr>
-                <div class="filters-section">
-                    <a href="">Reshudable</a><hr>
-                    <p><b>Amneties</b></p><hr> 
-                </div> {% endcomment %}
-            {% comment %} </div> {% endcomment %}
-            <div class="col-md-12 col-xs-12">
-                <table class="table">
-                    <thead>
-                        <tr>
-                        <th scope="col">Operator ID</th>
-                        <th scope="col">Route</th>
-                        <th scope="col">Bus Name</th>
-                        <th scope="col">Bus Type</th>
-                        <th scope="col">Fare</th>
-                        {% comment %} <th scope="col">Seat Type</th> {% endcomment %}
-                        <th scope="col">Operator</th>
-                        </tr>
-                    </thead>
-                {% for bus in bus %}
-                    <tbody>
-                        <tr>
-                            <td id="bus{{bus.operator.id}}">{{forloop.counter}}</td>
-                            <td>{{bus.route}}</td>
-                            <td>{{bus.bus_name}}</td>
-                            <td>{{bus.bustype}}</td>
-                            <td id="fare" value="{{bus.price}}">{{bus.price}}</td>
-                            {% comment %} <td>{{bus.seat_type}}</td> {% endcomment %}
-                            <td>
-                                <button type="submit" id="book-btn" for="{{bus.price}}#{{bus.id}}" class="btn btn-sm btn-primary modal-button" onclick= "myfunc(this)" data-toggle="modal" data-target="#mymodal"
-                                data-busId="{{bus.id}}"
-                                data-busName="{{bus.bus_name}}"
-                                data-routeId="{{bus.route.id}}"
-                                data-busSeat="{{bus.no_seats}}"
-                                data-busNo="{{bus.bus_number}}"
-                                data-seatType="{{bus.seat_type}}"
-                                data-busPrice="{{bus.price}}"
-                                data-busuniqueid="{{bus.bus_id}}">
-                                    book
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-
-                {% endfor %}
-                </table>
-                {% comment %} {% for bus in bus %}
-                    <div class="accordionItem">
-                        <div class="row accordionTitle">
-                            <div class="col-sm-3">
-                                <p><b>Operator Name</b></p>
-                                {{bus.operator}}
-                            </div>
-                            <div class="col-sm-2">
-                                <p>Bus Type</p>
-                                {{bus.bustype}}
-                            </div>
-                            <div class="col-sm-2">
-                                <p><b>Departure-shift</b></p>
-                                {{bus.boarding_time}}
-                            </div>
-                            <div class="col-sm-3">
-                                <p>Route</p>
-                                {{bus.route_name}}
-                            </div>
-                            <div class="col-sm-2">
-                                <p><b>Fare</b></p>
-                                Rs.<span id="spare">{{bus.price}}</span>
-                            </div>
-                        </div>
-                        <div class="accordionContent">
-                                <div class="seat-container">                                
-                                    <ul class="showcase">
-                                        <li>
-                                            <div class="seat">
-                                                <small>N/A</small>
-                                            </div>
-                                        </li>
-                            
-                                        <li>
-                                            <div class="seat selected">
-                                                <small>Selected</small>
-                                            </div>
-                                        </li>
-                            
-                                        <li>
-                                            <div class="seat occupied">
-                                                <small>Occupied</small>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="select-container">
-                                        <div class="screen"></div>
-                                        <div class="seat-row">
-                                            <div class="seat-none"></div>
-                                            <div class="seat-none"></div>
-                                            <div class="seat-none"></div>
-                                            <div class="driver"></div>
-                                        </div>
-                                        <div class="seat-row">
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                        </div>
-                                        <div class="seat-row">
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat occupied"></div>
-                                            <div class="seat occupied"></div>
-                                        </div>
-                                        <div class="seat-row">
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                        </div>
-                                        <div class="seat-row">
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                        </div>
-                                        <div class="seat-row">
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat occupied"></div>
-                                            <div class="seat"></div>
-                                        </div>
-                                        <div class="seat-row">
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                        </div>
-                                        <div class="seat-row">
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat occupied"></div>
-                                            <div class="seat"></div>
-                                        </div>
-                                        <div class="seat-row">
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                        </div>
-                                        <div class="seat-row">
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                        </div>
-                                        <div class="seat-row">
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <div class="seat"></div>
-                                            <!-- <div class="seat"></div>
-                                            <div class="seat"></div> -->
-                                        </div>
-                                        <p class="text">
-                                            you have selected <span id="count">0</span> seats for a price of  Rs. <span id="total">0</span>
-                                        </p>
-                                    </div>
-                                </div>
-                        </div>
+    <section class="results">
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-md-2 col-xs-12">
+                    <h3>filter here</h3>
+                    <div class="card-body">
+                        <h5 class="card-title">Location</h5><hr>
+                        {% for bus in  bus%}
+                            {% for amnity in bus.amneties.all %}
+                            <label class="form-check mb-2"> 
+                                <input class="form-check-input" type="checkbox" value=""> 
+                                <span class="form-check-label">{{amnity}} </span> 
+                            </label>
+                            {% endfor %}
+                        {% endfor %}
                     </div>
-                {% endfor %} {% endcomment %}
+                </div>
+                <div class="col-md-10 col-xs-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="d-none">Operator ID</th>
+                                <th scope="col">Bus Name</th>
+                                <th scope="col">Route</th>
+                            <th scope="col">Bus Type</th>
+                            <th scope="col">Fare</th>
+                            <th scope="col">Book Bus</th>
+                            {% comment %} <th scope="col">Seat Type</th> {% endcomment %}
+                            <th scope="col" class="d-none">Operator</th>
+                            </tr>
+                        </thead>
+                    {% for bus in bus %}
+                        <tbody>
+                            <tr>
+                                <td id="bus{{bus.operator.id}}" class="d-none">{{forloop.counter}}</td>
+                                <td>
+                                    <div class=""title><h3>{{bus.bus_name}}</h3></div>
+                                    <div>
+                                        <small class="text-center">{{bus.bustype}}</small>
+                                    </div>
+                                    <p href="#" class="btn-link"> 
+                                        <div class="bg-success text-white text-center w-25 text-center rounded">{{bus.rating}} / 5</div>
+                                    </p> 
+                                </td>
+                                <td><div class="m-3 text-success">{{bus.route}}</div>
+                                    <div class="amneties">
+                                    {% for amnity in bus.amneties.all %}
+                                        {{amnity}},
+                                        {% endfor %}
+                                    </div>
+                                    
+                                </td>
+                                <td>{{bus.bustype}}</td>
+                                <td id="fare" value="{{bus.price}}"><strong>{{bus.price}} </strong></td>
+                                <td>
+                                    <button type="submit" id="book-btn" for="{{bus.price}}#{{bus.id}}" class="btn btn-sm btn-primary modal-button" onclick= "myfunc(this)" data-toggle="modal" data-target="#mymodal"
+                                    data-busId="{{bus.id}}"
+                                    data-busName="{{bus.bus_name}}"
+                                    data-routeId="{{bus.route.id}}"
+                                    data-busSeat="{{bus.no_seats}}"
+                                    data-busNo="{{bus.bus_number}}"
+                                    data-seatType="{{bus.seat_type}}"
+                                    data-busPrice="{{bus.price}}"
+                                    data-busuniqueid="{{bus.bus_id}}">
+                                        book
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    {% endfor %}
+                    </table>
+                    {% comment %} {% for bus in bus %}
+                        <div class="accordionItem">
+                            <div class="row accordionTitle">
+                                <div class="col-sm-3">
+                                    <p><b>Operator Name</b></p>
+                                    {{bus.operator}}
+                                </div>
+                                <div class="col-sm-2">
+                                    <p>Bus Type</p>
+                                    {{bus.bustype}}
+                                </div>
+                                <div class="col-sm-2">
+                                    <p><b>Departure-shift</b></p>
+                                    {{bus.boarding_time}}
+                                </div>
+                                <div class="col-sm-3">
+                                    <p>Route</p>
+                                    {{bus.route_name}}
+                                </div>
+                                <div class="col-sm-2">
+                                    <p><b>Fare</b></p>
+                                    Rs.<span id="spare">{{bus.price}}</span>
+                                </div>
+                            </div>
+                            <div class="accordionContent">
+                                    <div class="seat-container">                                
+                                        <ul class="showcase">
+                                            <li>
+                                                <div class="seat">
+                                                    <small>N/A</small>
+                                                </div>
+                                            </li>
+                                
+                                            <li>
+                                                <div class="seat selected">
+                                                    <small>Selected</small>
+                                                </div>
+                                            </li>
+                                
+                                            <li>
+                                                <div class="seat occupied">
+                                                    <small>Occupied</small>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="select-container">
+                                            <div class="screen"></div>
+                                            <div class="seat-row">
+                                                <div class="seat-none"></div>
+                                                <div class="seat-none"></div>
+                                                <div class="seat-none"></div>
+                                                <div class="driver"></div>
+                                            </div>
+                                            <div class="seat-row">
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                            </div>
+                                            <div class="seat-row">
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat occupied"></div>
+                                                <div class="seat occupied"></div>
+                                            </div>
+                                            <div class="seat-row">
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                            </div>
+                                            <div class="seat-row">
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                            </div>
+                                            <div class="seat-row">
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat occupied"></div>
+                                                <div class="seat"></div>
+                                            </div>
+                                            <div class="seat-row">
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                            </div>
+                                            <div class="seat-row">
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat occupied"></div>
+                                                <div class="seat"></div>
+                                            </div>
+                                            <div class="seat-row">
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                            </div>
+                                            <div class="seat-row">
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                            </div>
+                                            <div class="seat-row">
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <div class="seat"></div>
+                                                <!-- <div class="seat"></div>
+                                                <div class="seat"></div> -->
+                                            </div>
+                                            <p class="text">
+                                                you have selected <span id="count">0</span> seats for a price of  Rs. <span id="total">0</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    {% endfor %} {% endcomment %}
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 <script>
     // Render the PayPal button into #paypal-button-container
 

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <!-- ========================= SECTION CONTENT ========================= -->
+    <div class="container">
+        <h1 class="text-center">Booking</h1> 
+            {{grand_total}}
+        <button type="submit" class="btn btn-primary">proceed to pay</button>
+    </div>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+{% endblock content %}
+

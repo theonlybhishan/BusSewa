@@ -70,7 +70,6 @@ def bus(request):
     range2 = 4
     context={
         'bus':qs,
-
         'data':data,
         'form':form,
         'range2':range2,
@@ -89,7 +88,7 @@ class FilterView(View):
 @csrf_exempt
 def occupiedSeats(request):
     data= json.loads(request.body)
-    # print('============data==============',data)
+    print('============data==============',data)
     bus = Bus.objects.get(bus_name=data.get("busName"), pk = data.get("busId"))
     busID=bus.id
     # print('busID:',busID)
@@ -106,19 +105,17 @@ def occupiedSeats(request):
     # print('occupied seat_type:',occupied)
     occupied_seat = list(map(lambda seat : seat.bookedseat_no - 1, occupied))
     # occupied_seat = list(occupied)
-    # print('occupied_seat:',occupied_seat)
+    print('occupied_seat:',occupied_seat)
     # print('occuied_seat_type',type(occupied))
 
     return JsonResponse({
         "occupied_seats":occupied_seat,
         "bus":str(bus),
         "busId":busID,
-        
     })
     # return    
 
 @csrf_exempt
-
 def makePayment(request):
     print('****************************user**********',request.user.email)
     # form = SeatBookingForm(request.POST or None)
@@ -183,7 +180,7 @@ def makePayment(request):
             #sending mail to user about ticket
         # print('user',user)
         current_site = get_current_site(request)
-        mail_subject = 'your seet has been booked'
+        mail_subject = 'your seat has been booked'
         message = render_to_string('accounts/seat_book_email.html',{
             'user':request.user,
             'domain': urlsafe_base64_encode(force_bytes(request.user.pk)),
@@ -324,3 +321,14 @@ def bus_profile(request,id):
     }
 
     return render(request,'accounts/bus_profile.html',context)
+
+
+
+def _cart_id(request):
+    b_cart = request.session.session_key
+    print("cart_id",b_cart)
+    if not b_cart:
+        b_cart = request.session.create()
+    return b_cart
+
+    

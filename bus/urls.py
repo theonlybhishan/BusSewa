@@ -1,6 +1,20 @@
 import json
-from django.urls import path
+from django.urls import path, include
 from . import views
+from . import route_views
+from rest_framework.routers import DefaultRouter
+
+
+router = DefaultRouter()
+router.register(r'services', route_views.ServiceApi,basename = "servicesapi"),
+router.register(r'pickuppoint', route_views.PickuppointeApi,basename = "pickuppointapi"),
+router.register(r'route', route_views.RouteApi,basename = "routeapi"),
+router.register(r'agent', route_views.AgentApi,basename = "agentapi"),
+router.register(r'bus', route_views.BusApi,basename = "busapi"),
+router.register(r'seatdetail', route_views.SeatdetailApi,basename = "seatdetailapi"),
+router.register(r'seat', route_views.SeatApi,basename = "seatapi"),
+router.register(r'paymentintent', route_views.PaymentIntentApi,basename = "paymentintent"),
+router.register(r'payment', route_views.PaymentApi,basename = "paymentapi"),
 
 urlpatterns = [
     #dashboard only
@@ -11,6 +25,7 @@ urlpatterns = [
     path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('bus_profile/<int:id>', views.bus_profile, name='bus_profile'),
 
+    path('api/bus/',include(router.urls)),
 
     path('',views.home, name='home'),
     path('test/', views.test , name='test'),

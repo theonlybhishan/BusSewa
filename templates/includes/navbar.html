@@ -12,9 +12,6 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Help <span class="sr-only"></span></a>
-      </li>
       {% comment %} <li class="nav-item">
         <a class="nav-link" href="{% url 'booking' %}">booking <span class="sr-only"></span></a>
       </li>  {% endcomment %}
@@ -22,7 +19,7 @@
         <a class="nav-link" href="{% url 'bus' %}">Bus <span class="sr-only"></span></a>
         </li>
       <li class="nav-item">
-        <a class="nav-link" href="https://bookseva.herokuapp.com/hotel/">Hotels <span class="sr-only"></span></a>
+        <a class="nav-link" href="{% url 'hotel' %}">Hotels <span class="sr-only"></span></a>
         </li>
          {% comment %} <li class="nav-item">
         <a class="nav-link" href="{% url 'test' %}">Test <span class="sr-only"></span></a>
@@ -34,9 +31,18 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             {% comment %} <a class="dropdown-item" href="#">Print Ticket</a><hr> {% endcomment %}
-            <a class="dropdown-item" href="{% url 'cancel_ticket' %}">Cancel Ticket</a>
+            <a class="dropdown-item" href="{% url 'cancel_ticket' %}">Cancel Booking</a>
           </div>
         </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="#">Help <span class="sr-only"></span></a>
+      </li>
+
+      {% if user.role is 1 or user.role is 2 or user.role is 3%}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'addashboard' %}">Admin <span class="sr-only"></span></a>
+      </li>
       {% endif %}
       {% if user.id is None %}
         <li class="nav-item dropdown mt-2 ml-2">
@@ -56,11 +62,28 @@
             Welcome {{user.first_name}}!
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a href="{% url 'dashboard' %}">Dahboard</a> <span class="dark-transp"> | </span>
+            <a href="{% url 'dashboard' %}">Dashboard</a> <span class="dark-transp"> | </span>
             <a href="{% url 'logout' %}"> Logout</a>
           </div>
         </li>
-      {% endif %}
+        <li class="nav-item me-2">
+          {% if not cart_count %}
+              <a class="nav-link" href="{% url 'cart' %}"><i class="fa fa-heart"></i></a>
+          {% else %}
+
+          <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-heart"></i>
+          <!-- Counter - Alerts -->
+          <i class="badge badge-danger badge-counter">{{ cart_count }}</i>
+          </a>
+          {% comment %} <a href="{% url 'cart' %}" class="widget-header pl-3 ml-3">
+              <div class="icon icon-xs bg-gray rounded-circle border"><i class="fa fa-heart"></i></div>
+              <span class="badge badge-danger notify">{{ cart_count }}</span>
+          </a> {% endcomment %}
+          {% endif %}
+      </li>
+        {% endif %}
     </ul>
   </div>
 </div>

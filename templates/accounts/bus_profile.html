@@ -5,12 +5,14 @@
     <div class= "container">
     <p class="text-center mt-5"><strong>Ticket List of {{pro_bus.bus_name}} ({{pro_bus.route}})</strong></p>
 
-    <table class="table">
+    <table class="table" id="printTable">
     <thead>
         <tr>
         {% comment %} <th scope="col">#</th> {% endcomment %}
         <th scope="col">Seat Number</th>
         <th scope="col">Occupant Name</th>
+        <th scope="col">Pickup Area</th>
+        <th scope="col">Deop area</th>
         <th scope="col">Status</th>
         </tr>
     </thead>
@@ -20,13 +22,18 @@
             {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}
             <td>{{seat.bookedseat_no}}</td>
             <td>{{seat.occupant_firstname}} {{seat.occupant_lastname}}</td>
+            <td>{{seat.pickup_area}}</td>
+            <td>{{seat.drop_area}}</td>
             {% if seat.is_paid is True %}
                 <td>paid</td>
+            {% else %}
+            <td>not paid</td>
             {% endif %}
         </tr>
     {% endfor %}
     </tbody>
     </table> 
+    <button class="text-dark px-3 py-1 rounded" onclick="window.print()"><h6>Print</h6></button>
 </div>   
 {% comment %} hi welcome to{{ pro_bus.bus_name }} profile {% endcomment %}
 

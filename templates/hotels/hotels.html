@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="inlineform">
+    <div class="container">
+        <form action="{% url 'searchhotel' %}" method="GET">
+            <div class='form-row searchbar'>
+                <div class="col-md-3">
+                    <input list="startpoint" class="form-control" placeholder="Location" name="startpoint" required>
+                    <datalist id="startpoint">
+                        <option>Pokhara</option>
+                        <option>Kathmandu</option>
+                        <option>Syangja</option>
+                        <option>Dang</option>
+                        <option>Nepaljung</option>
+                    </datalist>  
+                </div>
+                <div class="col-md-3">
+                    <!-- <label>Departure Time:</label> -->
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="sld" placeholder="Select Date" name="checkin" >
+                        <span class="input-group-append">
+                            <div class="input-group-text bg-transparent border-0">
+                                <i class="fas fa-calendar-alt"></i>                                        
+                            </div>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <!-- <label>Departure Time:</label> -->
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="sld" placeholder="Select Date" name="checkout" >
+                        <span class="input-group-append">
+                            <div class="input-group-text bg-transparent border-0">
+                                <i class="fas fa-calendar-alt"></i>                                        
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="md-4">
+                    <button type="submit" class="btn btn-primary btn-md btn-block px-5">Search</button>  
+                </div>                      
+        </form>            
+    </div>
+</section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <h3>filter here</h3>
+                <div class="card-body">
+                    <h5 class="card-title">Location</h5><hr>
+                    {% for hotel in hotels %}
+                    <label class="form-check mb-2"> 
+                        <input class="form-check-input" type="checkbox" value=""> 
+                        <span class="form-check-label"> {{hotel.city}} </span> 
+                    </label>
+                    {% endfor %}
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title">Categories</h5><hr>
+                    {% for hotel in hotels %}
+                    <label class="form-check mb-2"> 
+                        <input class="form-check-input" type="checkbox" value=""> 
+                        <span class="form-check-label"> {{hotel.room.room_type.name}} </span> 
+                    </label>
+                    {% endfor %}
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title">Amneties</h5><hr>
+                    {% for hotel in hotels %}
+                    <label class="form-check mb-2"> 
+                        <input class="form-check-input" type="checkbox" value=""> 
+                        <span class="form-check-label"> {{hotel.city}} </span> 
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 mt-4">
+ {% comment %} form here {% endcomment %}
+                <form action="{% url 'searchhotel' %}" method="GET">
+                    <div class='form-row searchbar'>
+                        <div class="col-md-4">
+                            <label class="" for="Searchlocation">Search</label>
+                            <input name="search" class="form-control" value="{{search}}" placeholder="Search">      
+                        </div>
+                
+        
+                        <div class="col-md-4">
+                            <!-- <label>Departure Time:</label> -->
+                            <div class="input-group">
+                                <select class="form-control" name="sort_by" id="exampleFormControlSelect1">
+                                    <option value="">Recommended</option>
+                                    <option {% if sort_by == 'ASC' %} selected {%endif %} value="ASC">ASC</option>
+                                    <option {% if sort_by == 'DSC' %} selected {%endif %} value="DSC">DSC</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="md-4">
+                            <button type="submit" class="btn btn-primary btn-md btn-block px-5">Search</button>  
+                        </div> 
+                    </div>                     
+                </form>
+
+                <section id="hotel-listing">
+                    {% for hotel in hotels %}
+
+                    <div class="custom-card border mt-5">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4">
+                                <a href="{{hotel.get_url}}">
+                                    <img src="{{hotel.image.url}}" class="img-fluid" alt="{{hotel.title}} image" style="">
+                                </a>
+                            </div>
+                            <div class="col-md-8 col-sm-8 mt-1">
+                                <a href="{{hotel.get_url}}">
+                                    <h5 class="card-title">{{hotel.title}}</h5>
+                                </a>
+                                <p>{{hotel.description|truncatechars:150}}</p>
+                                <p>
+                                    {{hotel.room.room_type.name}},
+                                    {% comment %} {{hotel.room.amneties}} {% endcomment %}
+                                    {%for amenitie in hotel.room.amneties_set.all %}
+                                    <b>{{amenitie.title}}</b>,
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
