@@ -21,7 +21,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"><strong>Hotel Dashboard</strong></h1>
+                        <h1 class="h3 mb-0 text-gray-800"><strong>Room Dashboard</strong></h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
@@ -126,7 +126,7 @@
                                 <table class="table table-bordered" id="chiknaTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Hotel name</th>
+                                            {% comment %} <th>Hotel name</th> {% endcomment %}
                                             <th>Room No </th>
                                             <th>Room Type</th>
                                             <th>price</th>
@@ -138,7 +138,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Hotel name</th>
+                                            {% comment %} <th>Hotel name</th> {% endcomment %}
                                             <th>Room No</th>
                                             <th>Room Type</th>
                                             <th>price</th>
@@ -151,7 +151,7 @@
                                     <tbody>
                                         {% for hotel in rooms %}
                                         <tr>
-                                            <td>{{hotel.hotel}}</td>
+                                            {% comment %} <td>{{hotel.hotel}}</td> {% endcomment %}
                                             <td>{{hotel.room_no}}</td>
                                             <td>{{hotel.room_type.title}}</td>
                                             <td>{{hotel.price}}</td>
@@ -169,7 +169,7 @@
                                             </td>
                                             <td>
                                                 {% comment %} <a class="btn btn-datatable btn-icon btn-transparent-dark me-2"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></a> {% endcomment %}
-                                                <a class="text-dark px-4" href="{% url 'update_room' hotel.hotel hotel.id %}"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                                <a class="text-dark px-4" href="{% url 'update_room' hotel.hotel.slug hotel.id %}"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
                                                 <a class="text-dark" href="" data-toggle="modal" data-target="#deletemodal{{hotel.id}}"><i class="fa fa-trash"></i></a>
 
                                                     <!-- DELETE Modal-->
@@ -183,7 +183,7 @@
                                                                     <span aria-hidden="true">×</span>
                                                                 </button>
                                                             </div>
-                                                            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                                                            <div class="modal-body">Select "Delete" below if you are ready to end your current session.</div>
                                                             <div class="modal-footer">
                                                                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                                                                 <a class="btn btn-primary" href="login.html">delete</a>
@@ -245,6 +245,5 @@
             </div>
         </div>
     </div>
-
 
 {% endblock content %}

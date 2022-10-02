@@ -73,9 +73,32 @@
                                                 <div class="badge bg-danger text-white rounded-pill">not_active</div>
                                                 {% endif %}
                                             </td>
+                                            {% comment %} <a href="{% url 'hotel_detail' hotel.slug %}" class="btn btn-datatable btn-icon btn-transparent-dark me-2"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></a> {% endcomment %}
                                             <td>
-                                                <button class="btn btn-datatable btn-icon btn-transparent-dark me-2"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
-                                                {% comment %} <a class="btn btn-sm btn-danger text-white" href="{% url 'delete_hotel' Hotel.pk %}">delete</a></td> {% endcomment %}
+                                                {% comment %} <a class="btn btn-datatable btn-icon btn-transparent-dark me-2"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></a> {% endcomment %}
+                                                <a class="text-dark px-4" href="{% url 'hotel_detail' hotel.slug %}"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                                <a class="text-dark" href="" data-toggle="modal" data-target="#deletemodal{{hotel.id}}"><i class="fa fa-trash"></i></a>
+
+                                                    <!-- DELETE Modal-->
+                                                <div class="modal fade" id="deletemodal{{hotel.id}}" tabidex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Ready to Delete Room of {{hotel.room_no}}?</h5>
+                                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                                <a class="btn btn-primary" href="login.html">delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% comment %} <a class="text-dark" href=""><i class="fa-thin fa-ellipsis-vertical"></i></a> {% endcomment %}
 
                                                 {% comment %} <a class="btn btn-datatable btn-icon btn-transparent-dark" href="{% url 'delete_Hotel' Hotel.pk %}"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a> {% endcomment %}
                                             </td>

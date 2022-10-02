@@ -14,11 +14,14 @@ urlpatterns = [
 
     #hotel_section
     path('add_hotel/', views.Addhotel, name="add_hotel"),
-    path('add_room/', views.AddRoom, name="add_room"),
     path('galleries/', views.hotelgallery, name="add_gallery"),
     path('all_hotel/', views.Allhotel, name="all_hotel"),
+    path('all_hotel/<str:hotel_slug>', views.hotel_room_detail, name = 'hotel_detail'),
+
+    #room data
     path('all_room/', views.AllRooms, name="all_rooms"),
-    path('all_hotel/<str:slug>', views.hotel_room_detail, name = 'hotel_detail'),
+    path('add_room/', views.AddRoom, name="add_room"),
+    path('<str:hotel_slug>/edit/<int:pk>', views.update_room, name = 'update_room'),
 
 
     #bus_section

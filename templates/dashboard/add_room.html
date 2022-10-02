@@ -33,8 +33,8 @@
                             <div class="card mb-4">
                                 <div class="card-header">Hotel Information</div>
                                 <div class="card-body">
-                                    <form>
-
+                                    <form method="POST" action="{% url 'add_room' %}" enctype="multipart/form-data">
+                                        {% csrf_token %}
                                         {{form|crispy}}
                                         {% comment %} <!-- Form Group (username)-->
                                         <div class="mb-3">

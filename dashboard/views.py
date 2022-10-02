@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.views.generic import View, UpdateView
 
 from dashboard.forms import *
 from hotel.models import *
@@ -36,9 +37,8 @@ def hotel(request):
     user= request.user
     if user.role==1:
         hotel = Hotels.objects.all()
-    elif user.role==1 or user.role==2:
+    elif user.role==1 or user.role==3:
         hotel = Hotels.objects.filter(user=user, is_available=True)
-
     context={
         'hotel':hotel
     }
@@ -49,7 +49,14 @@ def AddRoom(request):
     user=request.user
     hotel = Hotels.objects.filter(user=user, is_available=True)
     forms = RoomFrom(hotel)
-    # forms = RoomFrom
+    print(forms)
+    if request.POST:
+        forms = RoomFrom(hotel, request.POST, request.FILES)
+        print(request.FILES)
+        if forms.is_valid():
+            obj = forms.save(commit=False)
+            obj.user = user
+            obj.save()
     context = {
         'form': forms
     }
@@ -114,11 +121,60 @@ def AllRooms(request):
 
 
 def hotel_room_detail(request, hotel_slug):
-    hotel = Hotels.objects.filter(slug= hotel_slug)
-    room = Rooms.objects.filter(hotel__slug=hotel)
+    hotel = Hotels.objects.get(slug= hotel_slug)
+    room = Rooms.objects.filter(hotel=hotel)
+    # print('room', room)
 
     context = {
-        'hotel':hotel
+        'rooms':room
     }
 
+    return render(request, 'dashboard/hotel/hotel_detail.html', context)
+
+def get_hotel_slug(self):
+    hotel = Hotels.objects.filter(slug=self)
+    for title in hotel:
+        slug = title.slug
+        return slug
+
+def update_room(request,hotel_slug, pk):
+    user= request.user
+    hotel = Hotels.objects.filter(slug=hotel_slug)
+    print(hotel)
+    # hotel_name = hotel.title
+    # print("hotel_name", hotel_name)
+    room = Rooms.objects.filter(pk= pk).first()
+    # print('rooms', room.id)
+    form = RoomFrom(hotel ,instance = room)
+
+    hotel_slug = get_hotel_slug(hotel_slug)
+    print('hotel_slug', hotel_slug)
+
+    if request.POST:
+        form = RoomFrom(hotel, request.POST,instance = room)
+        if form.is_valid():
+            form.save()
+            return redirect('all_hotel')
+        
+    context = {
+        'form':form,
+        'hotel':hotel_slug,
+        'room':room
+    }
+
+    return render(request, 'dashboard/hotel/update_room.html', context)
+
+
+
+
+
+# class UpdateRoom(UpdateView):
+#     template_name= 'dashboard/hotel/update_room.html'
+#     from_class = RoomFrom
+#     model = Rooms
+
+#     def get_object(self, queryset=None):
+#         hotel = 
+#         obj = Rooms.objects.filter(pk=self.kwargs['id']).first()
+#         return obj
 

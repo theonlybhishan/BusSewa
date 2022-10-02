@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     #django rest framework
     'rest_framework',
     'drf_yasg',
+    'import_export',
 ]
 
 MIDDLEWARE = [

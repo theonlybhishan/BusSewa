@@ -28,12 +28,13 @@ class HotelForm(ModelForm):
                  'room', 'price', 'is_available', 'address', 'phone_number', 'city',)
 
 class RoomFrom(ModelForm):
-    def __init__(self, hotel, *args, **kwargs):
-        super(RoomFrom,self).__init__(*args, **kwargs)
-        self.fields['hotel'].queryset = hotel
     class Meta:
         model= Rooms
-        fields=('hotel', 'image', 'room_type', 'price', 'amneties',  'size', 'compimentary',)
+        exclude = ('user',)
+    def __init__(self, hotel=None, *args, **kwargs):
+        super(RoomFrom,self).__init__(*args, **kwargs)
+        self.fields['hotel'].queryset = hotel
+        # fields=('hotel','room_no', 'image', 'room_type', 'price', 'amneties',  'size', 'compimentary',)
 
 
 
